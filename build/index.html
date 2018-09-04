@@ -397,7 +397,11 @@ Be sure to include the header `Content-Type: application/json` with your request
 </tr>
 <tr>
 <td>401</td>
-<td>Unauthorized -- Your API key is wrong.</td>
+<td>Unauthorized -- No API key provided.</td>
+</tr>
+<tr>
+<td>403</td>
+<td>Forbidden -- Your API key is invalid.</td>
 </tr>
 <tr>
 <td>404</td>
@@ -412,8 +416,16 @@ Be sure to include the header `Content-Type: application/json` with your request
 <td>Internal Server Error -- We had a problem with our server. Try again later.</td>
 </tr>
 <tr>
+<td>502</td>
+<td>Bad Gateway -- Our backend services are unavailable. Please try again later.</td>
+</tr>
+<tr>
 <td>503</td>
 <td>Service Unavailable -- We&#39;re temporarily offline for maintenance. Please try again later.</td>
+</tr>
+<tr>
+<td>504</td>
+<td>Gateway Timeout -- Our backend services are taking too long to respond. Please try again later.</td>
 </tr>
 </tbody></table>
 
