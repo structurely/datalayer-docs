@@ -236,10 +236,24 @@
               </ul>
           </li>
           <li>
+            <a href="#agents" class="toc-h1 toc-link" data-title="Agents">Agents</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#fields" class="toc-h2 toc-link" data-title="Fields">Fields</a>
+                  </li>
+                  <li>
+                    <a href="#list-agents" class="toc-h2 toc-link" data-title="List Agents">List Agents</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#leads" class="toc-h1 toc-link" data-title="Leads">Leads</a>
               <ul class="toc-list-h2">
                   <li>
                     <a href="#fields" class="toc-h2 toc-link" data-title="Fields">Fields</a>
+                  </li>
+                  <li>
+                    <a href="#list-leads" class="toc-h2 toc-link" data-title="List Leads">List Leads</a>
                   </li>
                   <li>
                     <a href="#get-lead" class="toc-h2 toc-link" data-title="Get Lead">Get Lead</a>
@@ -281,7 +295,131 @@
 <td><code>Boolean</code></td>
 <td>A JSON boolean represented by either <code>true</code> or <code>false</code>.</td>
 </tr>
+<tr>
+<td><code>Integer</code></td>
+<td>A plain integer. May be restricted by an interval (i.e. <code>Intenger[0,)</code>, <code>Integer[0,10]</code>, <code>Integer(0,100]</code>).</td>
+</tr>
+<tr>
+<td><code>Float</code></td>
+<td>A floating point number.</td>
+</tr>
+<tr>
+<td><code>String</code></td>
+<td>A plain string. When used as a url or query parameter, it must be url escaped.</td>
+</tr>
 </tbody></table>
+<h1 id='agents'>Agents</h1>
+<p>The Agent resource represents an account in homechat. An agent has settings and owns leads.</p>
+
+<aside class="warning">
+This API resource is subject to change. Be prepared to make changes in the future.
+</aside>
+<h2 id='fields'>Fields</h2>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+<th>Writable?</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td><code>ObjectId</code></td>
+<td>The ID of the agent this resource represents.</td>
+<td>No</td>
+</tr>
+<tr>
+<td>email</td>
+<td><code>String</code></td>
+<td>The email of the agent. This is unique and used for login credentials</td>
+<td>No</td>
+</tr>
+</tbody></table>
+<h2 id='list-agents'>List Agents</h2><pre class="highlight shell tab-shell"><code>curl <span class="s1">'https://api.structurely.com/v1/agents?userId=1025&amp;email=john.richards191919%40example.com'</span> <span class="se">\</span>
+  -H <span class="s1">'X-Api-Authorization: myapikey'</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"_metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"collection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"agents"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"limit"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"offset"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"agents"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5b92de82f434f50034330e46"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john.richards191919@example.com"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint returns a list of agents sorted and/or filtered by the given parameters. This request requires the user_id parameter which refers to a third party integration user id (e.g. liondesk).</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>GET https://api.structurely.com/v1/agents</code></p>
+<h3 id='query-parameters'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required?</th>
+<th>Default</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>userId<a href="#list-agents-note-1"><sup>[1]</sup></a></td>
+<td><code>String,Integer</code></td>
+<td>The third party user id</td>
+<td>Yes</td>
+<td>None</td>
+</tr>
+<tr>
+<td>limit</td>
+<td><code>Integer[1,100]</code></td>
+<td>The number of results to return</td>
+<td>No</td>
+<td><code>10</code></td>
+</tr>
+<tr>
+<td>offset</td>
+<td><code>Integer[0,)</code></td>
+<td>Indicates the number of results to skip</td>
+<td>No</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td>sort<a href="#list-agents-note-2"><sup>[2]</sup></a></td>
+<td><code>String</code></td>
+<td>A comma separated list of fields to sort by</td>
+<td>No</td>
+<td><code>email</code></td>
+</tr>
+<tr>
+<td>email<a href="#list-agents-note-3"><sup>[3]</sup></a></td>
+<td><code>String</code></td>
+<td>A partial or full email to search</td>
+<td>No</td>
+<td>None</td>
+</tr>
+</tbody></table>
+
+<ol style="font-size: 12px">
+  <li id="list-agents-note-1">This field expects the request to be coming from a system that has already integrated with Homechat. This field is expected to be removed in the near future and is only here to assist in finding an agent in Homechat that has an account in a different system.</li>
+  <li id="list-agents-note-2">The sort string allows multiple fields with left to right precedence with optional <code>-</code> or <code>+</code> for controlling ascending and descending order</li>
+  <li id="list-agents-note-3">String search fields use a case insensitive partial filter that can match any part of the string</li>
+</ol>
+
+<aside class="notice">
+Be sure to replace myapikey with your API key.
+</aside>
+
+<aside class="warning">
+The <code>userId</code> parameter will be removed in the future. Because of the way the system is set up currently, this parameter must be used until changes can be made to the API. Users will be notified before these changes are made to the API.
+</aside>
 <h1 id='leads'>Leads</h1>
 <p>The Lead resource represents a single contact possibly with a conversation in homechat. This conversation includes messages by agents, the lead, and Holmes.</p>
 <h2 id='fields'>Fields</h2>
@@ -290,19 +428,172 @@
 <th>Field</th>
 <th>Type</th>
 <th>Description</th>
+<th>Writable?</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>id</td>
 <td><code>ObjectId</code></td>
 <td>The ID of the lead this resource represents.</td>
+<td>No</td>
+</tr>
+<tr>
+<td>name</td>
+<td><code>String</code></td>
+<td>The full name of the lead</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>email</td>
+<td><code>String</code></td>
+<td>The email of the lead</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>phone</td>
+<td><code>String</code></td>
+<td>The phone number of the lead or the format <code>+15551234567</code></td>
+<td>No</td>
+</tr>
+<tr>
+<td>firstContact</td>
+<td><code>Float</code></td>
+<td>The number of seconds after the unix epoch since first contact was made with this lead</td>
+<td>No</td>
+</tr>
+<tr>
+<td>lastContact</td>
+<td><code>Float</code></td>
+<td>The number of seconds after the unix epoch since the latest contact was made with this lead</td>
+<td>No</td>
 </tr>
 <tr>
 <td>muted</td>
 <td><code>Boolean</code></td>
 <td>Indicates whether Holmes is muted in the conversation or not.</td>
+<td>Yes</td>
 </tr>
 </tbody></table>
+<h2 id='list-leads'>List Leads</h2><pre class="highlight shell tab-shell"><code>curl <span class="s1">'https://api.structurely.com/v1/leads?ownerId=59275069dec26a0d20fcc41e&amp;name=john'</span> <span class="se">\</span>
+  -H <span class="s1">'X-Api-Authorization: myapikey'</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"_metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"collection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"leads"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"limit"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"offset"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"leads"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5b317f7f97f5a50048e1a516"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John Doe"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jdoe@example.com"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+15551234567"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"firstContact"</span><span class="p">:</span><span class="w"> </span><span class="mf">1529970559.365</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastContact"</span><span class="p">:</span><span class="w"> </span><span class="mf">1530572384.613</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"muted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5a8b7ce54aecff0034c31776"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john doe"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"the.real.jdoe@example.com"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+15551112222"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"firstContact"</span><span class="p">:</span><span class="w"> </span><span class="mf">1519090916.902</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastContact"</span><span class="p">:</span><span class="w"> </span><span class="mf">1519090973.948</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"muted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5a690b0ef4a8dc00359afb57"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John Harkin"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jharkin@example.com"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+15557654321"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"firstContact"</span><span class="p">:</span><span class="w"> </span><span class="mf">1516833549.595</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"lastContact"</span><span class="p">:</span><span class="w"> </span><span class="mf">1516833576.27</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"muted"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint returns a list of leads sorted and/or filtered by the given parameters. This request requires the ownerId parameter which refers to an agent id.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>GET https://api.structurely.com/v1/leads</code></p>
+<h3 id='query-parameters'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required?</th>
+<th>Default</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ownerId</td>
+<td><code>ObjectId</code></td>
+<td>The id of the agent that owns this lead</td>
+<td>Yes</td>
+<td>None</td>
+</tr>
+<tr>
+<td>limit</td>
+<td><code>Integer[1,100]</code></td>
+<td>The number of results to return</td>
+<td>No</td>
+<td><code>10</code></td>
+</tr>
+<tr>
+<td>offset</td>
+<td><code>Integer[0,)</code></td>
+<td>Indicates the number of results to skip</td>
+<td>No</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td>sort<a href="#list-leads-note-1"><sup>[1]</sup></a></td>
+<td><code>String</code></td>
+<td>A comma separated list of fields to sort by</td>
+<td>No</td>
+<td><code>-lastContact</code></td>
+</tr>
+<tr>
+<td>name<a href="#list-leads-note-2"><sup>[2]</sup></a></td>
+<td><code>String</code></td>
+<td>A partial or full name to search</td>
+<td>No</td>
+<td>None</td>
+</tr>
+<tr>
+<td>email<a href="#list-leads-note-2"><sup>[2]</sup></a></td>
+<td><code>String</code></td>
+<td>A partial or full email to search</td>
+<td>No</td>
+<td>None</td>
+</tr>
+<tr>
+<td>phone<a href="#list-leads-note-2"><sup>[2]</sup></a></td>
+<td><code>String</code></td>
+<td>A partial or full phone number to search</td>
+<td>No</td>
+<td>None</td>
+</tr>
+</tbody></table>
+
+<ol style="font-size: 12px">
+  <li id="list-leads-note-1">The sort string allows multiple fields with left to right precedence with optional <code>-</code> or <code>+</code> for controlling ascending and descending order</li>
+  <li id="list-leads-note-2">String search fields use a case insensitive partial filter that can match any part of the string</li>
+</ol>
+
+<aside class="notice">
+Be sure to replace myapikey with your API key.
+</aside>
+
+<aside class="warning">
+The <code>ownerId</code> parameter will be removed in the future. Because of the way the system is set up currently, this parameter must be used until changes can be made to the API. Users will be notified before these changes are made to the API.
+</aside>
 <h2 id='get-lead'>Get Lead</h2><pre class="highlight shell tab-shell"><code>curl <span class="s1">'https://api.structurely.com/v1/leads/5ab1973c62c5be0034c2102c'</span> <span class="se">\</span>
   -H <span class="s1">'X-Api-Authorization: myapikey'</span>
 </code></pre>
@@ -310,12 +601,17 @@
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5ab1973c62c5be0034c2102c"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John Doe"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jdoe@example.com"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+15551234567"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"firstContact"</span><span class="p">:</span><span class="w"> </span><span class="mf">1529970559.365</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"lastContact"</span><span class="p">:</span><span class="w"> </span><span class="mf">1530572384.613</span><span class="p">,</span><span class="w">
   </span><span class="s2">"muted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>This endpoint returns a specific lead.</p>
-<h3 id='http-request'>HTTP Request</h3>
+<h3 id='http-request-2'>HTTP Request</h3>
 <p><code>GET https://api.structurely.com/v1/leads/&lt;id&gt;</code></p>
 <h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
@@ -329,10 +625,6 @@
 <td>The ID of the lead to retrieve</td>
 </tr>
 </tbody></table>
-
-<aside class="notice">
-Be sure to replace myapikey with your API key.
-</aside>
 <h2 id='update-lead'>Update Lead</h2><pre class="highlight shell tab-shell"><code>curl <span class="s1">'https://api.structurely.com/v1/leads/5ab1973c62c5be0034c2102c'</span> <span class="se">\</span>
   -X PATCH <span class="se">\</span>
   -H <span class="s1">'X-Api-Authorization: myapikey'</span> <span class="se">\</span>
@@ -343,12 +635,17 @@ Be sure to replace myapikey with your API key.
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5ab1973c62c5be0034c2102c"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John Doe"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jdoe@example.com"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+15551234567"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"firstContact"</span><span class="p">:</span><span class="w"> </span><span class="mf">1529970559.365</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"lastContact"</span><span class="p">:</span><span class="w"> </span><span class="mf">1530572384.613</span><span class="p">,</span><span class="w">
   </span><span class="s2">"muted"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>This endpoint updates a specific lead and returns the modified lead object.</p>
-<h3 id='http-request-2'>HTTP Request</h3>
+<h3 id='http-request-3'>HTTP Request</h3>
 <p><code>PATCH https://api.structurely.com/v1/leads/&lt;id&gt;</code></p>
 <h3 id='url-parameters-2'>URL Parameters</h3>
 <table><thead>
@@ -372,6 +669,18 @@ Be sure to replace myapikey with your API key.
 </tr>
 </thead><tbody>
 <tr>
+<td>name</td>
+<td><code>String</code></td>
+<td>The new full name to update the lead with</td>
+<td>No</td>
+</tr>
+<tr>
+<td>email</td>
+<td><code>String</code></td>
+<td>The new email to update the lead with</td>
+<td>No</td>
+</tr>
+<tr>
 <td>muted</td>
 <td><code>Boolean</code></td>
 <td>If true, Holmes will be muted if it is not already. If false, Holmes will be unmuted if not already.</td>
@@ -393,7 +702,7 @@ Be sure to include the header `Content-Type: application/json` with your request
 </thead><tbody>
 <tr>
 <td>400</td>
-<td>Bad Request -- Your request is invalid.</td>
+<td>Bad Request -- Your request was invalid.</td>
 </tr>
 <tr>
 <td>401</td>

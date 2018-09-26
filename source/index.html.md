@@ -8,6 +8,7 @@ toc_footers:
   - <a href='https://github.com/lord/slate'>Documentation Powered by Slate</a>
 
 includes:
+  - agents
   - leads
   - errors
 
@@ -34,3 +35,6 @@ Type | Description
 ---- | -----------
 `ObjectId` | A 24 byte hexadecimal string. See [ObjectId](https://docs.mongodb.com/manual/reference/method/ObjectId/).
 `Boolean` | A JSON boolean represented by either `true` or `false`.
+`Integer` | A plain integer. May be restricted by an interval (i.e. `Intenger[0,)`, `Integer[0,10]`, `Integer(0,100]`).
+`Float` | A floating point number.
+`String` | A plain string. When used as a url or query parameter, it must be url escaped.

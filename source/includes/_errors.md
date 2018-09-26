@@ -5,7 +5,7 @@ The Holmes API uses the following error codes:
 
 Error Code | Meaning
 ---------- | -------
-400 | Bad Request -- Your request is invalid.
+400 | Bad Request -- Your request was invalid.
 401 | Unauthorized -- No API key provided.
 403 | Forbidden -- Your API key is invalid.
 404 | Not Found -- The specified resource could not be found.
