@@ -10,12 +10,13 @@ This API resource is subject to change. Be prepared to make changes in the futur
 
 ### Conversation
 
-Field | Type | Description | Readable? | Writable? | Required?
------ | ---- | ----------- | --------- | --------- | ---------
+Field | Type | Description | Readable? | Writable? | Required? | Default
+----- | ---- | ----------- | --------- | --------- | --------- | -------
 id | `ObjectId` | The ID of the conversation this resource represents. | Yes | No | No
 settings | `ConversationSettings` | The settings for holmes per this conversation. | Yes | No | Yes
 slots | `List<ConversationSlot>` | A list of extracted or pre-filled values relating to the conversation. | Yes | No | Yes
-messages | `List<ConversationItem>` | A list of lead messages and system responses with the context value with each response. | No | Yes | Yes
+muted | `Boolean` | A boolean flag to tell Holmes whether or not this conversation is muted. A muted conversation can still receive messages but will generate no replies. | Yes | Yes | No | `false`
+messages | `List<ConversationItem>` | A list of lead messages and system responses with the context value with each response. | No | No | Yes
 
 ### ConversationSettings
 
@@ -118,7 +119,8 @@ curl 'https://api.structurely.com/v1/conversations' \
             "name": "email",
             "value": "jdoe@example.com"
         }
-    ]
+    ],
+    "muted": false
 }
 ```
 
@@ -134,6 +136,7 @@ Parameter | Type
 --------- | ----
 settings | `ConversationSettings`
 slots | `List<ConversationSlot>`
+muted | `Boolean`
 messages | `List<ConversationItem>`
 
 <aside class="notice">
@@ -183,7 +186,8 @@ curl 'https://api.structurely.com/v1/conversations/5c09a4416241ea2c293275b8' \
                 "buyer"
             ]
         }
-    ]
+    ],
+    "muted": false
 }
 ```
 
@@ -198,6 +202,57 @@ This endpoint returns a specific conversation.
 Parameter | Description
 --------- | -----------
 id | The ID of the conversation to retrieve
+
+## Update Conversation
+
+```shell
+curl 'https://api.structurely.com/v1/conversations/5c09a4416241ea2c293275b8' \
+  -X PATCH \
+  -H 'X-Api-Authorization: myapikey' \
+  -H 'Content-Type: application/json' \
+  -d '{ "muted": true }'
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+    "id": "5c09a4416241ea2c293275b8",
+    "settings": {
+        "holmesName": "Aisa",
+        "timeZone": "America/Chicago"
+    },
+    "slots": [
+        {
+            "name": "email",
+            "value": "jdoe@example.com"
+        }
+    ],
+    "muted": true
+}
+```
+
+This endpoint updates and returns a specific conversation object.
+
+### HTTP Request
+
+`PATCH https://api.structurely.com/v1/conversations/<id>`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+id | The ID of the conversation to update
+
+### Body Parameters[<sup>[^]</sup>](#conversations-schemas-conversation)
+
+Parameter | Type
+--------- | ----
+muted | `Boolean`
+
+<aside class="notice">
+Be sure to include the header `Content-Type: application/json` with your request.
+</aside>
 
 ## Create Message
 

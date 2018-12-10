@@ -279,6 +279,9 @@
                     <a href="#conversations-get-conversation" class="toc-h2 toc-link" data-title="Get Conversation">Get Conversation</a>
                   </li>
                   <li>
+                    <a href="#conversations-update-conversation" class="toc-h2 toc-link" data-title="Update Conversation">Update Conversation</a>
+                  </li>
+                  <li>
                     <a href="#conversations-create-message" class="toc-h2 toc-link" data-title="Create Message">Create Message</a>
                   </li>
                   <li>
@@ -740,6 +743,7 @@ This API resource is subject to change. Be prepared to make changes in the futur
 <th>Readable?</th>
 <th>Writable?</th>
 <th>Required?</th>
+<th>Default</th>
 </tr>
 </thead><tbody>
 <tr>
@@ -749,6 +753,7 @@ This API resource is subject to change. Be prepared to make changes in the futur
 <td>Yes</td>
 <td>No</td>
 <td>No</td>
+<td></td>
 </tr>
 <tr>
 <td>settings</td>
@@ -757,6 +762,7 @@ This API resource is subject to change. Be prepared to make changes in the futur
 <td>Yes</td>
 <td>No</td>
 <td>Yes</td>
+<td></td>
 </tr>
 <tr>
 <td>slots</td>
@@ -765,14 +771,25 @@ This API resource is subject to change. Be prepared to make changes in the futur
 <td>Yes</td>
 <td>No</td>
 <td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td>muted</td>
+<td><code>Boolean</code></td>
+<td>A boolean flag to tell Holmes whether or not this conversation is muted. A muted conversation can still receive messages but will generate no replies.</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td><code>false</code></td>
 </tr>
 <tr>
 <td>messages</td>
 <td><code>List&lt;ConversationItem&gt;</code></td>
 <td>A list of lead messages and system responses with the context value with each response.</td>
 <td>No</td>
+<td>No</td>
 <td>Yes</td>
-<td>Yes</td>
+<td></td>
 </tr>
 </tbody></table>
 <h3 id='conversations-schemas-conversationsettings'>ConversationSettings</h3>
@@ -1056,7 +1073,8 @@ This API resource is subject to change. Be prepared to make changes in the futur
             </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"email"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jdoe@example.com"</span><span class="w">
         </span><span class="p">}</span><span class="w">
-    </span><span class="p">]</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"muted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>This endpoint creates and returns a new conversation object.</p>
@@ -1076,6 +1094,10 @@ This API resource is subject to change. Be prepared to make changes in the futur
 <tr>
 <td>slots</td>
 <td><code>List&lt;ConversationSlot&gt;</code></td>
+</tr>
+<tr>
+<td>muted</td>
+<td><code>Boolean</code></td>
 </tr>
 <tr>
 <td>messages</td>
@@ -1125,7 +1147,8 @@ Be sure to include the header `Content-Type: application/json` with your request
                 </span><span class="s2">"buyer"</span><span class="w">
             </span><span class="p">]</span><span class="w">
         </span><span class="p">}</span><span class="w">
-    </span><span class="p">]</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"muted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>This endpoint returns a specific conversation.</p>
@@ -1143,6 +1166,61 @@ Be sure to include the header `Content-Type: application/json` with your request
 <td>The ID of the conversation to retrieve</td>
 </tr>
 </tbody></table>
+<h2 id='conversations-update-conversation'>Update Conversation</h2><pre class="highlight shell tab-shell"><code>curl <span class="s1">'https://api.structurely.com/v1/conversations/5c09a4416241ea2c293275b8'</span> <span class="se">\</span>
+  -X PATCH <span class="se">\</span>
+  -H <span class="s1">'X-Api-Authorization: myapikey'</span> <span class="se">\</span>
+  -H <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  -d <span class="s1">'{ "muted": true }'</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5c09a4416241ea2c293275b8"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"holmesName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Aisa"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"timeZone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"America/Chicago"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"slots"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"email"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jdoe@example.com"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"muted"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint updates and returns a specific conversation object.</p>
+<h3 id='conversations-update-conversation-http-request'>HTTP Request</h3>
+<p><code>PATCH https://api.structurely.com/v1/conversations/&lt;id&gt;</code></p>
+<h3 id='conversations-update-conversation-url-parameters'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>The ID of the conversation to update</td>
+</tr>
+</tbody></table>
+<h3 id='conversations-update-conversation-body-parameters'>Body Parameters<a href="#conversations-schemas-conversation"><sup>[^]</sup></a></h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>muted</td>
+<td><code>Boolean</code></td>
+</tr>
+</tbody></table>
+
+<aside class="notice">
+Be sure to include the header `Content-Type: application/json` with your request.
+</aside>
 <h2 id='conversations-create-message'>Create Message</h2><pre class="highlight shell tab-shell"><code>curl <span class="s1">'https://api.structurely.com/v1/conversations/5c09a4416241ea2c293275b8/messages'</span>
   -X POST <span class="se">\</span>
   -H <span class="s1">'X-Api-Authorization: myapikey'</span> <span class="se">\</span>
