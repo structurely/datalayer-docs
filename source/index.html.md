@@ -10,6 +10,7 @@ toc_footers:
 includes:
   - agents
   - leads
+  - conversations
   - errors
 
 search: true
@@ -38,3 +39,5 @@ Type | Description
 `Integer` | A plain integer. May be restricted by an interval (i.e. `Intenger[0,)`, `Integer[0,10]`, `Integer(0,100]`).
 `Float` | A floating point number.
 `String` | A plain string. When used as a url or query parameter, it must be url escaped.
+`DateTime` | A date time string that can be parsed into a time zone aware date time object.
+`List` | An array of values of either a primitive type or a schema. Usually has a type name defined (i.e. `List<Agent>`, `List<Integer>`)

@@ -2,17 +2,19 @@
 
 The Lead resource represents a single contact possibly with a conversation in homechat. This conversation includes messages by agents, the lead, and Holmes.
 
-## Fields
+## Schemas
 
-Field | Type | Description | Writable?
------ | ---- | ----------- | --------
-id | `ObjectId` | The ID of the lead this resource represents. | No
-name | `String` | The full name of the lead | Yes
-email | `String` | The email of the lead | Yes
-phone | `String` | The phone number of the lead or the format `+15551234567` | No
-firstContact | `Float` | The number of seconds after the unix epoch since first contact was made with this lead | No
-lastContact | `Float` | The number of seconds after the unix epoch since the latest contact was made with this lead | No
-muted | `Boolean` | Indicates whether Holmes is muted in the conversation or not. | Yes
+### Lead
+
+Field | Type | Description | Readable? | Writable?
+----- | ---- | ----------- | --------- | ---------
+id | `ObjectId` | The ID of the lead this resource represents. | Yes | No
+name | `String` | The full name of the lead | Yes | Yes
+email | `String` | The email of the lead | Yes | Yes
+phone | `String` | The phone number of the lead or the format `+15551234567` | Yes | No
+firstContact | `Float` | The number of seconds after the unix epoch since first contact was made with this lead | Yes | No
+lastContact | `Float` | The number of seconds after the unix epoch since the latest contact was made with this lead | Yes | No
+muted | `Boolean` | Indicates whether Holmes is muted in the conversation or not. | Yes | Yes
 
 ## List Leads
 ```shell
@@ -162,13 +164,13 @@ Parameter | Description
 --------- | -----------
 id | The ID of the lead to update
 
-### Body Parameters
+### Body Parameters[<sup>[^]</sup>](#leads-schemas-lead)
 
-Parameter | Type | Description | Required?
---------- | ---- | ----------- | ---------
-name | `String` | The new full name to update the lead with | No
-email | `String` | The new email to update the lead with | No
-muted | `Boolean` | If true, Holmes will be muted if it is not already. If false, Holmes will be unmuted if not already. | No
+Parameter | Type
+--------- | ----
+name | `String`
+email | `String`
+muted | `Boolean`
 
 <aside class="notice">
 Be sure to include the header `Content-Type: application/json` with your request.

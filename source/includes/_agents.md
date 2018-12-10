@@ -6,12 +6,14 @@ The Agent resource represents an account in homechat. An agent has settings and 
 This API resource is subject to change. Be prepared to make changes in the future.
 </aside>
 
-## Fields
+## Schemas
 
-Field | Type | Description | Writable?
------ | ---- | ----------- | --------
-id | `ObjectId` | The ID of the agent this resource represents. | No
-email | `String` | The email of the agent. This is unique and used for login credentials | No
+### Agent
+
+Field | Type | Description | Readable? | Writable?
+----- | ---- | ----------- | --------- | ---------
+id | `ObjectId` | The ID of the agent this resource represents. | Yes | No
+email | `String` | The email of the agent. This is unique and used for login credentials | Yes | No
 
 ## List Agents
 ```shell

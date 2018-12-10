@@ -228,10 +228,10 @@
             <a href="#overview" class="toc-h1 toc-link" data-title="Overview">Overview</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#endpoints" class="toc-h2 toc-link" data-title="Endpoints">Endpoints</a>
+                    <a href="#overview-endpoints" class="toc-h2 toc-link" data-title="Endpoints">Endpoints</a>
                   </li>
                   <li>
-                    <a href="#types" class="toc-h2 toc-link" data-title="Types">Types</a>
+                    <a href="#overview-types" class="toc-h2 toc-link" data-title="Types">Types</a>
                   </li>
               </ul>
           </li>
@@ -239,10 +239,10 @@
             <a href="#agents" class="toc-h1 toc-link" data-title="Agents">Agents</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#fields" class="toc-h2 toc-link" data-title="Fields">Fields</a>
+                    <a href="#agents-schemas" class="toc-h2 toc-link" data-title="Schemas">Schemas</a>
                   </li>
                   <li>
-                    <a href="#list-agents" class="toc-h2 toc-link" data-title="List Agents">List Agents</a>
+                    <a href="#agents-list-agents" class="toc-h2 toc-link" data-title="List Agents">List Agents</a>
                   </li>
               </ul>
           </li>
@@ -250,16 +250,39 @@
             <a href="#leads" class="toc-h1 toc-link" data-title="Leads">Leads</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#fields" class="toc-h2 toc-link" data-title="Fields">Fields</a>
+                    <a href="#leads-schemas" class="toc-h2 toc-link" data-title="Schemas">Schemas</a>
                   </li>
                   <li>
-                    <a href="#list-leads" class="toc-h2 toc-link" data-title="List Leads">List Leads</a>
+                    <a href="#leads-list-leads" class="toc-h2 toc-link" data-title="List Leads">List Leads</a>
                   </li>
                   <li>
-                    <a href="#get-lead" class="toc-h2 toc-link" data-title="Get Lead">Get Lead</a>
+                    <a href="#leads-get-lead" class="toc-h2 toc-link" data-title="Get Lead">Get Lead</a>
                   </li>
                   <li>
-                    <a href="#update-lead" class="toc-h2 toc-link" data-title="Update Lead">Update Lead</a>
+                    <a href="#leads-update-lead" class="toc-h2 toc-link" data-title="Update Lead">Update Lead</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#conversations" class="toc-h1 toc-link" data-title="Conversations">Conversations</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#conversations-schemas" class="toc-h2 toc-link" data-title="Schemas">Schemas</a>
+                  </li>
+                  <li>
+                    <a href="#conversations-slots-and-contexts" class="toc-h2 toc-link" data-title="Slots and Contexts">Slots and Contexts</a>
+                  </li>
+                  <li>
+                    <a href="#conversations-create-conversation" class="toc-h2 toc-link" data-title="Create Conversation">Create Conversation</a>
+                  </li>
+                  <li>
+                    <a href="#conversations-get-conversation" class="toc-h2 toc-link" data-title="Get Conversation">Get Conversation</a>
+                  </li>
+                  <li>
+                    <a href="#conversations-create-message" class="toc-h2 toc-link" data-title="Create Message">Create Message</a>
+                  </li>
+                  <li>
+                    <a href="#conversations-create-response" class="toc-h2 toc-link" data-title="Create Response">Create Response</a>
                   </li>
               </ul>
           </li>
@@ -278,9 +301,9 @@
 <p>Welcome to the Structurely Holmes API! You can use our API to view, update, query both leads and agent&#39;s accounts. This API is a work in progress and is not in a final state. API endpoints, authentication flows, and availability may be subject to change at any time. If you are intestested in working with us via our API please contact us at info@structurely.com</p>
 <h1 id='authentication'>Authentication</h1>
 <p>All requests to the API in must include the header X-Api-Authorization with your API key. There will soon be a OAuth2 flow for obtaining bearer tokens to use in the Authorization header. To get an API key please contact us.</p>
-<h1 id='overview'>Overview</h1><h2 id='endpoints'>Endpoints</h2>
+<h1 id='overview'>Overview</h1><h2 id='overview-endpoints'>Endpoints</h2>
 <p>All endpoints are hosted by the domain <code>api.structurely.com</code>. All requests must use <code>https</code>. Any request with the protocol <code>http</code> will be redirected to <code>https</code> with the status code 301. The path for the api will always start with <code>/v1</code>. Every resource endpoint will start with <code>https://api.structurely.com/v1</code>.</p>
-<h2 id='types'>Types</h2>
+<h2 id='overview-types'>Types</h2>
 <table><thead>
 <tr>
 <th>Type</th>
@@ -307,6 +330,14 @@
 <td><code>String</code></td>
 <td>A plain string. When used as a url or query parameter, it must be url escaped.</td>
 </tr>
+<tr>
+<td><code>DateTime</code></td>
+<td>A date time string that can be parsed into a time zone aware date time object.</td>
+</tr>
+<tr>
+<td><code>List</code></td>
+<td>An array of values of either a primitive type or a schema. Usually has a type name defined (i.e. <code>List&lt;Agent&gt;</code>, <code>List&lt;Integer&gt;</code>)</td>
+</tr>
 </tbody></table>
 <h1 id='agents'>Agents</h1>
 <p>The Agent resource represents an account in homechat. An agent has settings and owns leads.</p>
@@ -314,12 +345,13 @@
 <aside class="warning">
 This API resource is subject to change. Be prepared to make changes in the future.
 </aside>
-<h2 id='fields'>Fields</h2>
+<h2 id='agents-schemas'>Schemas</h2><h3 id='agents-schemas-agent'>Agent</h3>
 <table><thead>
 <tr>
 <th>Field</th>
 <th>Type</th>
 <th>Description</th>
+<th>Readable?</th>
 <th>Writable?</th>
 </tr>
 </thead><tbody>
@@ -327,16 +359,18 @@ This API resource is subject to change. Be prepared to make changes in the futur
 <td>id</td>
 <td><code>ObjectId</code></td>
 <td>The ID of the agent this resource represents.</td>
+<td>Yes</td>
 <td>No</td>
 </tr>
 <tr>
 <td>email</td>
 <td><code>String</code></td>
 <td>The email of the agent. This is unique and used for login credentials</td>
+<td>Yes</td>
 <td>No</td>
 </tr>
 </tbody></table>
-<h2 id='list-agents'>List Agents</h2><pre class="highlight shell tab-shell"><code>curl <span class="s1">'https://api.structurely.com/v1/agents?userId=1025&amp;email=john.richards191919%40example.com'</span> <span class="se">\</span>
+<h2 id='agents-list-agents'>List Agents</h2><pre class="highlight shell tab-shell"><code>curl <span class="s1">'https://api.structurely.com/v1/agents?userId=1025&amp;email=john.richards191919%40example.com'</span> <span class="se">\</span>
   -H <span class="s1">'X-Api-Authorization: myapikey'</span>
 </code></pre>
 <blockquote>
@@ -358,9 +392,9 @@ This API resource is subject to change. Be prepared to make changes in the futur
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>This endpoint returns a list of agents sorted and/or filtered by the given parameters. This request requires the user_id parameter which refers to a third party integration user id (e.g. liondesk).</p>
-<h3 id='http-request'>HTTP Request</h3>
+<h3 id='agents-list-agents-http-request'>HTTP Request</h3>
 <p><code>GET https://api.structurely.com/v1/agents</code></p>
-<h3 id='query-parameters'>Query Parameters</h3>
+<h3 id='agents-list-agents-query-parameters'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -422,12 +456,13 @@ The <code>userId</code> parameter will be removed in the future. Because of the 
 </aside>
 <h1 id='leads'>Leads</h1>
 <p>The Lead resource represents a single contact possibly with a conversation in homechat. This conversation includes messages by agents, the lead, and Holmes.</p>
-<h2 id='fields'>Fields</h2>
+<h2 id='leads-schemas'>Schemas</h2><h3 id='leads-schemas-lead'>Lead</h3>
 <table><thead>
 <tr>
 <th>Field</th>
 <th>Type</th>
 <th>Description</th>
+<th>Readable?</th>
 <th>Writable?</th>
 </tr>
 </thead><tbody>
@@ -435,6 +470,7 @@ The <code>userId</code> parameter will be removed in the future. Because of the 
 <td>id</td>
 <td><code>ObjectId</code></td>
 <td>The ID of the lead this resource represents.</td>
+<td>Yes</td>
 <td>No</td>
 </tr>
 <tr>
@@ -442,29 +478,34 @@ The <code>userId</code> parameter will be removed in the future. Because of the 
 <td><code>String</code></td>
 <td>The full name of the lead</td>
 <td>Yes</td>
+<td>Yes</td>
 </tr>
 <tr>
 <td>email</td>
 <td><code>String</code></td>
 <td>The email of the lead</td>
 <td>Yes</td>
+<td>Yes</td>
 </tr>
 <tr>
 <td>phone</td>
 <td><code>String</code></td>
 <td>The phone number of the lead or the format <code>+15551234567</code></td>
+<td>Yes</td>
 <td>No</td>
 </tr>
 <tr>
 <td>firstContact</td>
 <td><code>Float</code></td>
 <td>The number of seconds after the unix epoch since first contact was made with this lead</td>
+<td>Yes</td>
 <td>No</td>
 </tr>
 <tr>
 <td>lastContact</td>
 <td><code>Float</code></td>
 <td>The number of seconds after the unix epoch since the latest contact was made with this lead</td>
+<td>Yes</td>
 <td>No</td>
 </tr>
 <tr>
@@ -472,9 +513,10 @@ The <code>userId</code> parameter will be removed in the future. Because of the 
 <td><code>Boolean</code></td>
 <td>Indicates whether Holmes is muted in the conversation or not.</td>
 <td>Yes</td>
+<td>Yes</td>
 </tr>
 </tbody></table>
-<h2 id='list-leads'>List Leads</h2><pre class="highlight shell tab-shell"><code>curl <span class="s1">'https://api.structurely.com/v1/leads?ownerId=59275069dec26a0d20fcc41e&amp;name=john'</span> <span class="se">\</span>
+<h2 id='leads-list-leads'>List Leads</h2><pre class="highlight shell tab-shell"><code>curl <span class="s1">'https://api.structurely.com/v1/leads?ownerId=59275069dec26a0d20fcc41e&amp;name=john'</span> <span class="se">\</span>
   -H <span class="s1">'X-Api-Authorization: myapikey'</span>
 </code></pre>
 <blockquote>
@@ -519,9 +561,9 @@ The <code>userId</code> parameter will be removed in the future. Because of the 
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>This endpoint returns a list of leads sorted and/or filtered by the given parameters. This request requires the ownerId parameter which refers to an agent id.</p>
-<h3 id='http-request'>HTTP Request</h3>
+<h3 id='leads-list-leads-http-request'>HTTP Request</h3>
 <p><code>GET https://api.structurely.com/v1/leads</code></p>
-<h3 id='query-parameters'>Query Parameters</h3>
+<h3 id='leads-list-leads-query-parameters'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -594,7 +636,7 @@ Be sure to replace myapikey with your API key.
 <aside class="warning">
 The <code>ownerId</code> parameter will be removed in the future. Because of the way the system is set up currently, this parameter must be used until changes can be made to the API. Users will be notified before these changes are made to the API.
 </aside>
-<h2 id='get-lead'>Get Lead</h2><pre class="highlight shell tab-shell"><code>curl <span class="s1">'https://api.structurely.com/v1/leads/5ab1973c62c5be0034c2102c'</span> <span class="se">\</span>
+<h2 id='leads-get-lead'>Get Lead</h2><pre class="highlight shell tab-shell"><code>curl <span class="s1">'https://api.structurely.com/v1/leads/5ab1973c62c5be0034c2102c'</span> <span class="se">\</span>
   -H <span class="s1">'X-Api-Authorization: myapikey'</span>
 </code></pre>
 <blockquote>
@@ -611,9 +653,9 @@ The <code>ownerId</code> parameter will be removed in the future. Because of the
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>This endpoint returns a specific lead.</p>
-<h3 id='http-request-2'>HTTP Request</h3>
+<h3 id='leads-get-lead-http-request'>HTTP Request</h3>
 <p><code>GET https://api.structurely.com/v1/leads/&lt;id&gt;</code></p>
-<h3 id='url-parameters'>URL Parameters</h3>
+<h3 id='leads-get-lead-url-parameters'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -625,7 +667,7 @@ The <code>ownerId</code> parameter will be removed in the future. Because of the
 <td>The ID of the lead to retrieve</td>
 </tr>
 </tbody></table>
-<h2 id='update-lead'>Update Lead</h2><pre class="highlight shell tab-shell"><code>curl <span class="s1">'https://api.structurely.com/v1/leads/5ab1973c62c5be0034c2102c'</span> <span class="se">\</span>
+<h2 id='leads-update-lead'>Update Lead</h2><pre class="highlight shell tab-shell"><code>curl <span class="s1">'https://api.structurely.com/v1/leads/5ab1973c62c5be0034c2102c'</span> <span class="se">\</span>
   -X PATCH <span class="se">\</span>
   -H <span class="s1">'X-Api-Authorization: myapikey'</span> <span class="se">\</span>
   -H <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
@@ -645,9 +687,9 @@ The <code>ownerId</code> parameter will be removed in the future. Because of the
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>This endpoint updates a specific lead and returns the modified lead object.</p>
-<h3 id='http-request-3'>HTTP Request</h3>
+<h3 id='leads-update-lead-http-request'>HTTP Request</h3>
 <p><code>PATCH https://api.structurely.com/v1/leads/&lt;id&gt;</code></p>
-<h3 id='url-parameters-2'>URL Parameters</h3>
+<h3 id='leads-update-lead-url-parameters'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -659,32 +701,542 @@ The <code>ownerId</code> parameter will be removed in the future. Because of the
 <td>The ID of the lead to update</td>
 </tr>
 </tbody></table>
-<h3 id='body-parameters'>Body Parameters</h3>
+<h3 id='leads-update-lead-body-parameters'>Body Parameters<a href="#leads-schemas-lead"><sup>[^]</sup></a></h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
 <th>Type</th>
-<th>Description</th>
-<th>Required?</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>name</td>
 <td><code>String</code></td>
-<td>The new full name to update the lead with</td>
-<td>No</td>
 </tr>
 <tr>
 <td>email</td>
 <td><code>String</code></td>
-<td>The new email to update the lead with</td>
-<td>No</td>
 </tr>
 <tr>
 <td>muted</td>
 <td><code>Boolean</code></td>
-<td>If true, Holmes will be muted if it is not already. If false, Holmes will be unmuted if not already.</td>
+</tr>
+</tbody></table>
+
+<aside class="notice">
+Be sure to include the header `Content-Type: application/json` with your request.
+</aside>
+<h1 id='conversations'>Conversations</h1>
+<p>The Conversation resource represents a conversational exchange with Aisa. This is distict from a lead because it interfaces directly with aisa rather than showing up for an agent in homechat.</p>
+
+<aside class="warning">
+This API resource is subject to change. Be prepared to make changes in the future.
+</aside>
+<h2 id='conversations-schemas'>Schemas</h2><h3 id='conversations-schemas-conversation'>Conversation</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+<th>Readable?</th>
+<th>Writable?</th>
+<th>Required?</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td><code>ObjectId</code></td>
+<td>The ID of the conversation this resource represents.</td>
+<td>Yes</td>
 <td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td>settings</td>
+<td><code>ConversationSettings</code></td>
+<td>The settings for holmes per this conversation.</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>slots</td>
+<td><code>List&lt;ConversationSlot&gt;</code></td>
+<td>A list of extracted or pre-filled values relating to the conversation.</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>messages</td>
+<td><code>List&lt;ConversationItem&gt;</code></td>
+<td>A list of lead messages and system responses with the context value with each response.</td>
+<td>No</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+</tbody></table>
+<h3 id='conversations-schemas-conversationsettings'>ConversationSettings</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+<th>Readable?</th>
+<th>Writable?</th>
+<th>Required?</th>
+<th>Default</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>timeZone</td>
+<td><code>String</code></td>
+<td>The time zone the realtor and/or lead. (See <a href="https://gist.github.com/heyalexej/8bf688fd67d7199be4a1682b3eec7568">list</a>)</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td>holmesName</td>
+<td><code>String</code></td>
+<td>The name of conversation AI to use in responses.</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+<td>Aisa</td>
+</tr>
+</tbody></table>
+<h3 id='conversations-schemas-conversationslot'>ConversationSlot</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+<th>Readable?</th>
+<th>Writable?</th>
+<th>Required?</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>name<a href="#conversations-slots-and-contexts-slots"><sup>[a]</sup></a></td>
+<td><code>String</code></td>
+<td>The name of the slot.</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>value<a href="#conversations-slots-and-contexts-slots"><sup>[a]</sup></a></td>
+<td><code>Any</code></td>
+<td>The value of the slot.</td>
+<td>Yes</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+</tbody></table>
+<h3 id='conversations-schemas-conversationitem'>ConversationItem</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+<th>Readable?</th>
+<th>Writable?</th>
+<th>Required?</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>message</td>
+<td><code>Message</code></td>
+<td>A message the lead sent.</td>
+<td>No</td>
+<td>Yes</td>
+<td>Yes<a href="#schema-conversationitem-note-1"><sup>[1]</sup></a></td>
+</tr>
+<tr>
+<td>respone</td>
+<td><code>Message</code></td>
+<td>A respone sent by the system.</td>
+<td>No</td>
+<td>Yes</td>
+<td>Yes<a href="#schema-conversationitem-note-1"><sup>[1]</sup></a></td>
+</tr>
+<tr>
+<td>context<a href="#conversations-slots-and-contexts-contexts"><sup>[b]</sup></a></td>
+<td><code>String</code></td>
+<td>The context set by the response in this conversation item.</td>
+<td>No</td>
+<td>Yes</td>
+<td>Yes<a href="#schema-conversationitem-note-2"><sup>[2]</sup></a></td>
+</tr>
+</tbody></table>
+
+<ol style="font-size: 12px">
+  <li id="schema-conversationitem-note-1"><code>message</code> and <code>response</code> are mutually exclusive. At least one is required to be present but not both.</li>
+  <li id="schema-conversationitem-note-2"><code>context</code> is only required if the <code>response</code> field is used.</li>
+</ol>
+<h3 id='conversations-schemas-message'>Message</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+<th>Readable?</th>
+<th>Writable?</th>
+<th>Required?</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>text</td>
+<td><code>String</code></td>
+<td>The text of the message.</td>
+<td>No</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>received</td>
+<td><code>DateTime</code></td>
+<td>The time the message was sent or received.</td>
+<td>No</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+</tbody></table>
+<h2 id='conversations-slots-and-contexts'>Slots and Contexts</h2><h3 id='conversations-slots-and-contexts-slots'>Slots</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>name</td>
+<td>String</td>
+<td>The name of the lead.</td>
+</tr>
+<tr>
+<td>email</td>
+<td>String</td>
+<td>The email of the lead.</td>
+</tr>
+<tr>
+<td>phone</td>
+<td>String</td>
+<td>The phone number of the lead.</td>
+</tr>
+<tr>
+<td>address</td>
+<td>String</td>
+<td>The address of the property a buyer lead is interested in.</td>
+</tr>
+<tr>
+<td>selling_address</td>
+<td>String</td>
+<td>The address of the property a seller lead is trying to sell.</td>
+</tr>
+<tr>
+<td>lead_types</td>
+<td>List<String></td>
+<td>A list of types of leads. Can be any combination of <code>buyer</code>, <code>seller</code>, or <code>renter</code>.</td>
+</tr>
+<tr>
+<td>lead_source</td>
+<td>String</td>
+<td>The source of the lead. Can be any string.</td>
+</tr>
+<tr>
+<td>agent_name</td>
+<td>String</td>
+<td>The name of the agent Holmes is messaging on the behalf of.</td>
+</tr>
+<tr>
+<td>agent_phone</td>
+<td>String</td>
+<td>The phone of the agent.</td>
+</tr>
+<tr>
+<td>agent_email</td>
+<td>String</td>
+<td>The email of the agent.</td>
+</tr>
+<tr>
+<td>agency_name</td>
+<td>String</td>
+<td>The name of the agency the agent works for or Holmes is messaging on the behalf of.</td>
+</tr>
+<tr>
+<td>office_location</td>
+<td>String</td>
+<td>The general location of the realtor office the system is representing.</td>
+</tr>
+</tbody></table>
+<h3 id='conversations-slots-and-contexts-contexts'>Contexts</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>general</td>
+</tr>
+<tr>
+<td>expect_address</td>
+</tr>
+<tr>
+<td>expect_agent_status</td>
+</tr>
+<tr>
+<td>expect_appointment</td>
+</tr>
+<tr>
+<td>expect_baths</td>
+</tr>
+<tr>
+<td>expect_beds</td>
+</tr>
+<tr>
+<td>expect_call_availability</td>
+</tr>
+<tr>
+<td>expect_contingency</td>
+</tr>
+<tr>
+<td>expect_email</td>
+</tr>
+<tr>
+<td>expect_financing_status</td>
+</tr>
+<tr>
+<td>expect_lead_type</td>
+</tr>
+<tr>
+<td>expect_listing_appointment</td>
+</tr>
+<tr>
+<td>expect_location</td>
+</tr>
+<tr>
+<td>expect_name</td>
+</tr>
+<tr>
+<td>expect_phone</td>
+</tr>
+<tr>
+<td>expect_price</td>
+</tr>
+<tr>
+<td>expect_selling_address</td>
+</tr>
+<tr>
+<td>expect_showing_appointment</td>
+</tr>
+<tr>
+<td>expect_timeframe</td>
+</tr>
+</tbody></table>
+<h2 id='conversations-create-conversation'>Create Conversation</h2><pre class="highlight shell tab-shell"><code>curl <span class="s1">'https://api.structurely.com/v1/conversations'</span> <span class="se">\</span>
+  -X POST <span class="se">\</span>
+  -H <span class="s1">'X-Api-Authorization: myapikey'</span> <span class="se">\</span>
+  -H <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  -d <span class="s1">'{ "settings": { "time_zone": "America/Chicago" }, "slots": [{ "name": "email", "value": "jdoe@example.com" }], "messages": [{ "response": { "text": "Hello, what is your name?", "received": "2018-12-08T15:20:00.000Z" }, "context": "expect_name }, { "message": { "text": "John", "received": "2018-12-08T16:34:00.000Z" } }] }'</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5c09a4416241ea2c293275b8"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"holmesName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Aisa"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"timeZone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"America/Chicago"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"slots"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"email"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jdoe@example.com"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint creates and returns a new conversation object.</p>
+<h3 id='conversations-create-conversation-http-request'>HTTP Request</h3>
+<p><code>POST https://api.structurely.com/v1/conversations</code></p>
+<h3 id='conversations-create-conversation-body-parameters'>Body Parameters<a href="#conversations-schemas-conversation"><sup>[^]</sup></a></h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>settings</td>
+<td><code>ConversationSettings</code></td>
+</tr>
+<tr>
+<td>slots</td>
+<td><code>List&lt;ConversationSlot&gt;</code></td>
+</tr>
+<tr>
+<td>messages</td>
+<td><code>List&lt;ConversationItem&gt;</code></td>
+</tr>
+</tbody></table>
+
+<aside class="notice">
+Be sure to include the header `Content-Type: application/json` with your request.
+</aside>
+<h2 id='conversations-get-conversation'>Get Conversation</h2><pre class="highlight shell tab-shell"><code>curl <span class="s1">'https://api.structurely.com/v1/conversations/5c09a4416241ea2c293275b8'</span> <span class="se">\</span>
+  -H <span class="s1">'X-Api-Authorization: myapikey'</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5c09a4416241ea2c293275b8"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"settings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"holmesName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Aisa"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"timeZone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"America/Chicago"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"slots"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"name"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John Doe"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"email"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jdoe@example.com"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"phone"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+15551234567"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"address"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123 Main St."</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"agent_name"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Andi Agent"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lead_types"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="s2">"buyer"</span><span class="w">
+            </span><span class="p">]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint returns a specific conversation.</p>
+<h3 id='conversations-get-conversation-http-request'>HTTP Request</h3>
+<p><code>GET https://api.structurely.com/v1/conversations/&lt;id&gt;</code></p>
+<h3 id='conversations-get-conversation-url-parameters'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>The ID of the conversation to retrieve</td>
+</tr>
+</tbody></table>
+<h2 id='conversations-create-message'>Create Message</h2><pre class="highlight shell tab-shell"><code>curl <span class="s1">'https://api.structurely.com/v1/conversations/5c09a4416241ea2c293275b8/messages'</span>
+  -X POST <span class="se">\</span>
+  -H <span class="s1">'X-Api-Authorization: myapikey'</span> <span class="se">\</span>
+  -H <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  -d <span class="s1">'{ "text": "Hello World", "received": "2018-12-09T11:44:00.000Z" }'</span>
+
+<span class="gp">&gt; </span>The above <span class="nb">command </span>returns JSON structured like this:
+
+<span class="sb">```</span>json
+<span class="o">{</span>
+    <span class="s2">"id"</span>: <span class="s2">"5c09a45e6241ea2c293275bf"</span>,
+    <span class="s2">"text"</span>: <span class="s2">"Hello World"</span>,
+    <span class="s2">"received"</span>: <span class="s2">"2018-12-09T11:44:00.000Z"</span>
+<span class="o">}</span>
+</code></pre>
+<p>This endpoint creates a new lead message for the conversation for us to extract and classify.</p>
+<h3 id='conversations-create-message-http-request'>HTTP Request</h3>
+<p><code>POST https://api.structurely.com/v1/conversations/&lt;id&gt;/messages</code></p>
+<h3 id='conversations-create-message-url-parameters'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>The ID of the conversation to retrieve</td>
+</tr>
+</tbody></table>
+<h3 id='conversations-create-message-body-parameters'>Body Parameters<a href="#conversations-schemas-message"><sup>[^]</sup></a></h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>text</td>
+<td><code>String</code></td>
+</tr>
+<tr>
+<td>received</td>
+<td><code>DateTime</code></td>
+</tr>
+</tbody></table>
+
+<aside class="notice">
+Be sure to include the header `Content-Type: application/json` with your request.
+</aside>
+<h2 id='conversations-create-response'>Create Response</h2><pre class="highlight shell tab-shell"><code>curl <span class="s1">'https://api.structurely.com/v1/conversations/5c09a4416241ea2c293275b8/responses'</span>
+  -X POST <span class="se">\</span>
+  -H <span class="s1">'X-Api-Authorization: myapikey'</span> <span class="se">\</span>
+  -H <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  -d <span class="s1">'{ "text": "Hello There", "received": "2018-12-09T11:44:00.000Z" }'</span>
+
+<span class="gp">&gt; </span>The above <span class="nb">command </span>returns JSON structured like this:
+
+<span class="sb">```</span>json
+<span class="o">{</span>
+    <span class="s2">"id"</span>: <span class="s2">"5c09a4416241ea2c293275b5"</span>,
+    <span class="s2">"text"</span>: <span class="s2">"Hello There"</span>,
+    <span class="s2">"received"</span>: <span class="s2">"2018-12-09T11:44:00.000Z"</span>
+<span class="o">}</span>
+</code></pre>
+<p>This endpoint creates a new system response for the conversation. This does nothing in our system other than act as a send receipt notifying us that an outbound message was sent on behalf of the system/realtor.</p>
+<h3 id='conversations-create-response-http-request'>HTTP Request</h3>
+<p><code>POST https://api.structurely.com/v1/conversations/&lt;id&gt;/responses</code></p>
+<h3 id='conversations-create-response-url-parameters'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>The ID of the conversation to retrieve</td>
+</tr>
+</tbody></table>
+<h3 id='conversations-create-response-body-parameters'>Body Parameters<a href="#conversations-schemas-message"><sup>[^]</sup></a></h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>text</td>
+<td><code>String</code></td>
+</tr>
+<tr>
+<td>received</td>
+<td><code>DateTime</code></td>
 </tr>
 </tbody></table>
 
