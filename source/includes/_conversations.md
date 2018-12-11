@@ -262,6 +262,7 @@ curl 'https://api.structurely.com/v1/conversations/5c09a4416241ea2c293275b8/mess
   -H 'X-Api-Authorization: myapikey' \
   -H 'Content-Type: application/json' \
   -d '{ "text": "Hello World", "received": "2018-12-09T11:44:00.000Z" }'
+```
 
 > The above command returns JSON structured like this:
 
@@ -304,6 +305,7 @@ curl 'https://api.structurely.com/v1/conversations/5c09a4416241ea2c293275b8/resp
   -H 'X-Api-Authorization: myapikey' \
   -H 'Content-Type: application/json' \
   -d '{ "text": "Hello There", "received": "2018-12-09T11:44:00.000Z" }'
+```
 
 > The above command returns JSON structured like this:
 

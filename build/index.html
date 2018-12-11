@@ -1226,16 +1226,16 @@ Be sure to include the header `Content-Type: application/json` with your request
   -H <span class="s1">'X-Api-Authorization: myapikey'</span> <span class="se">\</span>
   -H <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   -d <span class="s1">'{ "text": "Hello World", "received": "2018-12-09T11:44:00.000Z" }'</span>
-
-<span class="gp">&gt; </span>The above <span class="nb">command </span>returns JSON structured like this:
-
-<span class="sb">```</span>json
-<span class="o">{</span>
-    <span class="s2">"id"</span>: <span class="s2">"5c09a45e6241ea2c293275bf"</span>,
-    <span class="s2">"text"</span>: <span class="s2">"Hello World"</span>,
-    <span class="s2">"received"</span>: <span class="s2">"2018-12-09T11:44:00.000Z"</span>
-<span class="o">}</span>
 </code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5c09a45e6241ea2c293275bf"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hello World"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"received"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-12-09T11:44:00.000Z"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 <p>This endpoint creates a new lead message for the conversation for us to extract and classify.</p>
 <h3 id='conversations-create-message-http-request'>HTTP Request</h3>
 <p><code>POST https://api.structurely.com/v1/conversations/&lt;id&gt;/messages</code></p>
@@ -1276,16 +1276,16 @@ Be sure to include the header `Content-Type: application/json` with your request
   -H <span class="s1">'X-Api-Authorization: myapikey'</span> <span class="se">\</span>
   -H <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
   -d <span class="s1">'{ "text": "Hello There", "received": "2018-12-09T11:44:00.000Z" }'</span>
-
-<span class="gp">&gt; </span>The above <span class="nb">command </span>returns JSON structured like this:
-
-<span class="sb">```</span>json
-<span class="o">{</span>
-    <span class="s2">"id"</span>: <span class="s2">"5c09a4416241ea2c293275b5"</span>,
-    <span class="s2">"text"</span>: <span class="s2">"Hello There"</span>,
-    <span class="s2">"received"</span>: <span class="s2">"2018-12-09T11:44:00.000Z"</span>
-<span class="o">}</span>
 </code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5c09a4416241ea2c293275b5"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hello There"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"received"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-12-09T11:44:00.000Z"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 <p>This endpoint creates a new system response for the conversation. This does nothing in our system other than act as a send receipt notifying us that an outbound message was sent on behalf of the system/realtor.</p>
 <h3 id='conversations-create-response-http-request'>HTTP Request</h3>
 <p><code>POST https://api.structurely.com/v1/conversations/&lt;id&gt;/responses</code></p>
