@@ -919,6 +919,38 @@ This API resource is subject to change. Be prepared to make changes in the futur
 <td>Yes</td>
 <td>Yes</td>
 </tr>
+<tr>
+<td>_metadata<a href="#schema-message-note-1"><sup>[1]</sup></a></td>
+<td><code>MessageMetaData</code></td>
+<td>An optional metadata object to set the outgoing context for a response.</td>
+<td>No</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+</tbody></table>
+
+<ol style="font-size: 12px">
+  <li id="schema-message-note-1"><code>_metadata</code> is only used when creating a response object.</li>
+</ol>
+<h3 id='conversations-schemas-messagemetadata'>MessageMetaData</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+<th>Readable?</th>
+<th>Writable?</th>
+<th>Required?</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>context</td>
+<td><code>String</code></td>
+<td>The outgoing context of this response. Used by Holmes to classify messages sent after this response.</td>
+<td>No</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
 </tbody></table>
 <h2 id='conversations-slots-and-contexts'>Slots and Contexts</h2><h3 id='conversations-slots-and-contexts-slots'>Slots</h3>
 <table><thead>
@@ -1231,9 +1263,16 @@ Be sure to include the header `Content-Type: application/json` with your request
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5c09a45e6241ea2c293275bf"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hello World"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"received"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-12-09T11:44:00.000Z"</span><span class="w">
+    </span><span class="s2">"_metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"conversation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5c09a4416241ea2c293275b8"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"messages"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"responses"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5c09a45e6241ea2c293275bf"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hello World"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"received"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-12-09T11:44:00.000Z"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>This endpoint creates a new lead message for the conversation for us to extract and classify.</p>
@@ -1275,15 +1314,23 @@ Be sure to include the header `Content-Type: application/json` with your request
   -X POST <span class="se">\</span>
   -H <span class="s1">'X-Api-Authorization: myapikey'</span> <span class="se">\</span>
   -H <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
-  -d <span class="s1">'{ "text": "Hello There", "received": "2018-12-09T11:44:00.000Z" }'</span>
+  -d <span class="s1">'{ "_metadata": { "context": "expect_showing_appointment" }, "text": "Hello There", "received": "2018-12-09T11:44:00.000Z" }'</span>
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5c09a4416241ea2c293275b5"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hello There"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"received"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-12-09T11:44:00.000Z"</span><span class="w">
+    </span><span class="s2">"_metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"conversation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5c09a4416241ea2c293275b8"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"context"</span><span class="p">:</span><span class="w"> </span><span class="s2">"expect_showing_appointment"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"messages"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"responses"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"response"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5c09a4416241ea2c293275b5"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hello There"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"received"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-12-09T11:44:00.000Z"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>This endpoint creates a new system response for the conversation. This does nothing in our system other than act as a send receipt notifying us that an outbound message was sent on behalf of the system/realtor.</p>
@@ -1308,6 +1355,10 @@ Be sure to include the header `Content-Type: application/json` with your request
 <th>Type</th>
 </tr>
 </thead><tbody>
+<tr>
+<td>_metadata</td>
+<td><code>MessageMetaData</code></td>
+</tr>
 <tr>
 <td>text</td>
 <td><code>String</code></td>
