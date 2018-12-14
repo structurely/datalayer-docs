@@ -51,6 +51,17 @@ Field | Type | Description | Readable? | Writable? | Required?
 ----- | ---- | ----------- | --------- | --------- | ---------
 text | `String` | The text of the message. | No | Yes | Yes
 received | `DateTime` | The time the message was sent or received. | No | Yes | Yes
+_metadata[<sup>[1]</sup>](#schema-message-note-1) | `MessageMetaData` | An optional metadata object to set the outgoing context for a response. | No | Yes | No
+
+<ol style="font-size: 12px">
+  <li id="schema-message-note-1"><code>_metadata</code> is only used when creating a response object.</li>
+</ol>
+
+### MessageMetaData
+
+Field | Type | Description | Readable? | Writable? | Required?
+----- | ---- | ----------- | --------- | --------- | ---------
+context | `String` | The outgoing context of this response. Used by Holmes to classify messages sent after this response. | No | Yes | No
 
 ## Slots and Contexts
 
@@ -268,9 +279,16 @@ curl 'https://api.structurely.com/v1/conversations/5c09a4416241ea2c293275b8/mess
 
 ```json
 {
-    "id": "5c09a45e6241ea2c293275bf",
-    "text": "Hello World",
-    "received": "2018-12-09T11:44:00.000Z"
+    "_metadata": {
+        "conversation": "5c09a4416241ea2c293275b8",
+        "messages": 2,
+        "responses": 1
+    },
+    "message": {
+        "id": "5c09a45e6241ea2c293275bf",
+        "text": "Hello World",
+        "received": "2018-12-09T11:44:00.000Z"
+    }
 }
 ```
 
@@ -304,16 +322,24 @@ curl 'https://api.structurely.com/v1/conversations/5c09a4416241ea2c293275b8/resp
   -X POST \
   -H 'X-Api-Authorization: myapikey' \
   -H 'Content-Type: application/json' \
-  -d '{ "text": "Hello There", "received": "2018-12-09T11:44:00.000Z" }'
+  -d '{ "_metadata": { "context": "expect_showing_appointment" }, "text": "Hello There", "received": "2018-12-09T11:44:00.000Z" }'
 ```
 
 > The above command returns JSON structured like this:
 
 ```json
 {
-    "id": "5c09a4416241ea2c293275b5",
-    "text": "Hello There",
-    "received": "2018-12-09T11:44:00.000Z"
+    "_metadata": {
+        "conversation": "5c09a4416241ea2c293275b8",
+        "context": "expect_showing_appointment",
+        "messages": 2,
+        "responses": 2
+    },
+    "response": {
+        "id": "5c09a4416241ea2c293275b5",
+        "text": "Hello There",
+        "received": "2018-12-09T11:44:00.000Z"
+    }
 }
 ```
 
@@ -333,6 +359,7 @@ id | The ID of the conversation to retrieve
 
 Parameter | Type
 --------- | ----
+_metadata | `MessageMetaData`
 text | `String`
 received | `DateTime`
 
