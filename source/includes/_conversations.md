@@ -24,6 +24,7 @@ Field | Type | Description | Readable? | Writable? | Required? | Default
 ----- | ---- | ----------- | --------- | --------- | --------- | -------
 timeZone | `String` | The time zone the realtor and/or lead. (See [list](https://gist.github.com/heyalexej/8bf688fd67d7199be4a1682b3eec7568)) | Yes | No | Yes
 holmesName | `String` | The name of conversation AI to use in responses. | Yes | No | No | Aisa
+leadTypes | `List<String>` | The lead types that will be supported in this conversation. Possible values are `buyer`, `seller`, and `renter` | Yes | No | No | `['buyer', 'seller']`
 
 ### ConversationSlot
 
@@ -74,7 +75,7 @@ email | String | The email of the lead.
 phone | String | The phone number of the lead.
 address | String |  The address of the property a buyer lead is interested in.
 selling_address | String | The address of the property a seller lead is trying to sell.
-lead_types | List<String> | A list of types of leads. Can be any combination of `buyer`, `seller`, or `renter`.
+lead_types | List<String> | A list of lead types this lead is considered as. Can be any combination of `buyer`, `seller`, or `renter`.
 lead_source | String | The source of the lead. Can be any string.
 agent_name | String | The name of the agent Holmes is messaging on the behalf of.
 agent_phone | String | The phone of the agent.

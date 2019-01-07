@@ -822,6 +822,15 @@ This API resource is subject to change. Be prepared to make changes in the futur
 <td>No</td>
 <td>Aisa</td>
 </tr>
+<tr>
+<td>leadTypes</td>
+<td><code>List&lt;String&gt;</code></td>
+<td>The lead types that will be supported in this conversation. Possible values are <code>buyer</code>, <code>seller</code>, and <code>renter</code></td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+<td><code>[&#39;buyer&#39;, &#39;seller&#39;]</code></td>
+</tr>
 </tbody></table>
 <h3 id='conversations-schemas-conversationslot'>ConversationSlot</h3>
 <table><thead>
@@ -988,7 +997,7 @@ This API resource is subject to change. Be prepared to make changes in the futur
 <tr>
 <td>lead_types</td>
 <td>List<String></td>
-<td>A list of types of leads. Can be any combination of <code>buyer</code>, <code>seller</code>, or <code>renter</code>.</td>
+<td>A list of lead types this lead is considered as. Can be any combination of <code>buyer</code>, <code>seller</code>, or <code>renter</code>.</td>
 </tr>
 <tr>
 <td>lead_source</td>
