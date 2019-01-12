@@ -16,6 +16,7 @@ id | `ObjectId` | The ID of the conversation this resource represents. | Yes | N
 settings | `ConversationSettings` | The settings for holmes per this conversation. | Yes | No | Yes
 slots | `List<ConversationSlot>` | A list of extracted or pre-filled values relating to the conversation. | Yes | No | Yes
 muted | `Boolean` | A boolean flag to tell Holmes whether or not this conversation is muted. A muted conversation can still receive messages but will generate no replies. | Yes | Yes | No | `false`
+stages | `List<String>` | A list of stages this conversation is currently in. | Yes | No | No
 messages | `List<ConversationItem>` | A list of lead messages and system responses with the context value with each response. | No | No | Yes
 
 ### ConversationSettings
@@ -64,7 +65,7 @@ Field | Type | Description | Readable? | Writable? | Required?
 ----- | ---- | ----------- | --------- | --------- | ---------
 context | `String` | The outgoing context of this response. Used by Holmes to classify messages sent after this response. | No | Yes | No
 
-## Slots and Contexts
+## Slots, Contexts, and Stages
 
 ### Slots
 
@@ -106,6 +107,16 @@ expect_price |
 expect_selling_address |
 expect_showing_appointment |
 expect_timeframe |
+
+### Stages
+
+Name | Description
+---- | -----------
+not_responded | The lead has not responded in this conversation.
+responded | The lead has responded in this conversation.
+not_interested | The lead has indicated no interest or opted out of communication in this conversation.
+interested | The lead has responded and has not been classified as not interested.
+needs_follow_up | The lead has reached a conclusion in the conversation that requires further follow-up.
 
 ## Create Conversation
 

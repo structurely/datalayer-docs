@@ -270,7 +270,7 @@
                     <a href="#conversations-schemas" class="toc-h2 toc-link" data-title="Schemas">Schemas</a>
                   </li>
                   <li>
-                    <a href="#conversations-slots-and-contexts" class="toc-h2 toc-link" data-title="Slots and Contexts">Slots and Contexts</a>
+                    <a href="#conversations-slots-contexts-and-stages" class="toc-h2 toc-link" data-title="Slots, Contexts, and Stages">Slots, Contexts, and Stages</a>
                   </li>
                   <li>
                     <a href="#conversations-create-conversation" class="toc-h2 toc-link" data-title="Create Conversation">Create Conversation</a>
@@ -783,6 +783,15 @@ This API resource is subject to change. Be prepared to make changes in the futur
 <td><code>false</code></td>
 </tr>
 <tr>
+<td>stages</td>
+<td><code>List&lt;String&gt;</code></td>
+<td>A list of stages this conversation is currently in.</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
 <td>messages</td>
 <td><code>List&lt;ConversationItem&gt;</code></td>
 <td>A list of lead messages and system responses with the context value with each response.</td>
@@ -961,7 +970,7 @@ This API resource is subject to change. Be prepared to make changes in the futur
 <td>No</td>
 </tr>
 </tbody></table>
-<h2 id='conversations-slots-and-contexts'>Slots and Contexts</h2><h3 id='conversations-slots-and-contexts-slots'>Slots</h3>
+<h2 id='conversations-slots-contexts-and-stages'>Slots, Contexts, and Stages</h2><h3 id='conversations-slots-contexts-and-stages-slots'>Slots</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -1030,7 +1039,7 @@ This API resource is subject to change. Be prepared to make changes in the futur
 <td>The general location of the realtor office the system is representing.</td>
 </tr>
 </tbody></table>
-<h3 id='conversations-slots-and-contexts-contexts'>Contexts</h3>
+<h3 id='conversations-slots-contexts-and-stages-contexts'>Contexts</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -1092,6 +1101,34 @@ This API resource is subject to change. Be prepared to make changes in the futur
 </tr>
 <tr>
 <td>expect_timeframe</td>
+</tr>
+</tbody></table>
+<h3 id='conversations-slots-contexts-and-stages-stages'>Stages</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>not_responded</td>
+<td>The lead has not responded in this conversation.</td>
+</tr>
+<tr>
+<td>responded</td>
+<td>The lead has responded in this conversation.</td>
+</tr>
+<tr>
+<td>not_interested</td>
+<td>The lead has indicated no interest or opted out of communication in this conversation.</td>
+</tr>
+<tr>
+<td>interested</td>
+<td>The lead has responded and has not been classified as not interested.</td>
+</tr>
+<tr>
+<td>needs_follow_up</td>
+<td>The lead has reached a conclusion in the conversation that requires further follow-up.</td>
 </tr>
 </tbody></table>
 <h2 id='conversations-create-conversation'>Create Conversation</h2><pre class="highlight shell tab-shell"><code>curl <span class="s1">'https://api.structurely.com/v1/conversations'</span> <span class="se">\</span>
