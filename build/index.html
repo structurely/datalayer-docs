@@ -498,6 +498,13 @@ The <code>userId</code> parameter will be removed in the future. Because of the 
 <td>No</td>
 </tr>
 <tr>
+<td>readiness</td>
+<td><code>String</code></td>
+<td>The readiness of the lead. Can be one of the following values: <code>active</code>, <code>just_looking</code>, <code>researching</code>, or an empty string.</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
 <td>firstContact</td>
 <td><code>Float</code></td>
 <td>The number of seconds after the unix epoch since first contact was made with this lead</td>
@@ -538,6 +545,7 @@ The <code>userId</code> parameter will be removed in the future. Because of the 
       </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John Doe"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jdoe@example.com"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+15551234567"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"readiness"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
       </span><span class="s2">"firstContact"</span><span class="p">:</span><span class="w"> </span><span class="mf">1529970559.365</span><span class="p">,</span><span class="w">
       </span><span class="s2">"lastContact"</span><span class="p">:</span><span class="w"> </span><span class="mf">1530572384.613</span><span class="p">,</span><span class="w">
       </span><span class="s2">"muted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
@@ -547,6 +555,7 @@ The <code>userId</code> parameter will be removed in the future. Because of the 
       </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john doe"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"the.real.jdoe@example.com"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+15551112222"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"readiness"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"firstContact"</span><span class="p">:</span><span class="w"> </span><span class="mf">1519090916.902</span><span class="p">,</span><span class="w">
       </span><span class="s2">"lastContact"</span><span class="p">:</span><span class="w"> </span><span class="mf">1519090973.948</span><span class="p">,</span><span class="w">
       </span><span class="s2">"muted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
@@ -556,6 +565,7 @@ The <code>userId</code> parameter will be removed in the future. Because of the 
       </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John Harkin"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jharkin@example.com"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+15557654321"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"readiness"</span><span class="p">:</span><span class="w"> </span><span class="s2">"just_looking"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"firstContact"</span><span class="p">:</span><span class="w"> </span><span class="mf">1516833549.595</span><span class="p">,</span><span class="w">
       </span><span class="s2">"lastContact"</span><span class="p">:</span><span class="w"> </span><span class="mf">1516833576.27</span><span class="p">,</span><span class="w">
       </span><span class="s2">"muted"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
@@ -650,6 +660,7 @@ The <code>ownerId</code> parameter will be removed in the future. Because of the
   </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John Doe"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jdoe@example.com"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+15551234567"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"readiness"</span><span class="p">:</span><span class="w"> </span><span class="s2">"researching"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"firstContact"</span><span class="p">:</span><span class="w"> </span><span class="mf">1529970559.365</span><span class="p">,</span><span class="w">
   </span><span class="s2">"lastContact"</span><span class="p">:</span><span class="w"> </span><span class="mf">1530572384.613</span><span class="p">,</span><span class="w">
   </span><span class="s2">"muted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
@@ -684,6 +695,7 @@ The <code>ownerId</code> parameter will be removed in the future. Because of the
   </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John Doe"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jdoe@example.com"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+15551234567"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"readiness"</span><span class="p">:</span><span class="w"> </span><span class="s2">"just_looking"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"firstContact"</span><span class="p">:</span><span class="w"> </span><span class="mf">1529970559.365</span><span class="p">,</span><span class="w">
   </span><span class="s2">"lastContact"</span><span class="p">:</span><span class="w"> </span><span class="mf">1530572384.613</span><span class="p">,</span><span class="w">
   </span><span class="s2">"muted"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">

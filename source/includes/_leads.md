@@ -12,6 +12,7 @@ id | `ObjectId` | The ID of the lead this resource represents. | Yes | No
 name | `String` | The full name of the lead | Yes | Yes
 email | `String` | The email of the lead | Yes | Yes
 phone | `String` | The phone number of the lead or the format `+15551234567` | Yes | No
+readiness | `String` | The readiness of the lead. Can be one of the following values: `active`, `just_looking`, `researching`, or an empty string. | Yes | No
 firstContact | `Float` | The number of seconds after the unix epoch since first contact was made with this lead | Yes | No
 lastContact | `Float` | The number of seconds after the unix epoch since the latest contact was made with this lead | Yes | No
 muted | `Boolean` | Indicates whether Holmes is muted in the conversation or not. | Yes | Yes
@@ -38,6 +39,7 @@ curl 'https://api.structurely.com/v1/leads?ownerId=59275069dec26a0d20fcc41e&name
       "name": "John Doe",
       "email": "jdoe@example.com",
       "phone": "+15551234567",
+      "readiness": "",
       "firstContact": 1529970559.365,
       "lastContact": 1530572384.613,
       "muted": false
@@ -47,6 +49,7 @@ curl 'https://api.structurely.com/v1/leads?ownerId=59275069dec26a0d20fcc41e&name
       "name": "john doe",
       "email": "the.real.jdoe@example.com",
       "phone": "+15551112222",
+      "readiness": "active",
       "firstContact": 1519090916.902,
       "lastContact": 1519090973.948,
       "muted": false
@@ -56,6 +59,7 @@ curl 'https://api.structurely.com/v1/leads?ownerId=59275069dec26a0d20fcc41e&name
       "name": "John Harkin",
       "email": "jharkin@example.com",
       "phone": "+15557654321",
+      "readiness": "just_looking",
       "firstContact": 1516833549.595,
       "lastContact": 1516833576.27,
       "muted": true
@@ -110,6 +114,7 @@ curl 'https://api.structurely.com/v1/leads/5ab1973c62c5be0034c2102c' \
   "name": "John Doe",
   "email": "jdoe@example.com",
   "phone": "+15551234567",
+  "readiness": "researching",
   "firstContact": 1529970559.365,
   "lastContact": 1530572384.613,
   "muted": false
@@ -146,6 +151,7 @@ curl 'https://api.structurely.com/v1/leads/5ab1973c62c5be0034c2102c' \
   "name": "John Doe",
   "email": "jdoe@example.com",
   "phone": "+15551234567",
+  "readiness": "just_looking",
   "firstContact": 1529970559.365,
   "lastContact": 1530572384.613,
   "muted": true
