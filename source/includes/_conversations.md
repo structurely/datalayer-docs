@@ -83,6 +83,7 @@ agent_phone | String | The phone of the agent.
 agent_email | String | The email of the agent.
 agency_name | String | The name of the agency the agent works for or Holmes is messaging on the behalf of.
 office_location | String | The general location of the realtor office the system is representing.
+readiness | String | The readiness of the lead. Can be one of the following values: `active`, `just_looking`, `researching`, or an empty string.
 
 ### Contexts
 
