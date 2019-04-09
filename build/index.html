@@ -259,6 +259,9 @@
                     <a href="#leads-get-lead" class="toc-h2 toc-link" data-title="Get Lead">Get Lead</a>
                   </li>
                   <li>
+                    <a href="#leads-get-lead-conversation" class="toc-h2 toc-link" data-title="Get Lead Conversation">Get Lead Conversation</a>
+                  </li>
+                  <li>
                     <a href="#leads-update-lead" class="toc-h2 toc-link" data-title="Update Lead">Update Lead</a>
                   </li>
               </ul>
@@ -479,21 +482,21 @@ The <code>userId</code> parameter will be removed in the future. Because of the 
 <tr>
 <td>name</td>
 <td><code>String</code></td>
-<td>The full name of the lead</td>
+<td>The full name of the lead.</td>
 <td>Yes</td>
 <td>Yes</td>
 </tr>
 <tr>
 <td>email</td>
 <td><code>String</code></td>
-<td>The email of the lead</td>
+<td>The email of the lead.</td>
 <td>Yes</td>
 <td>Yes</td>
 </tr>
 <tr>
 <td>phone</td>
 <td><code>String</code></td>
-<td>The phone number of the lead or the format <code>+15551234567</code></td>
+<td>The phone number of the lead in the format <code>+15551234567</code>.</td>
 <td>Yes</td>
 <td>No</td>
 </tr>
@@ -507,14 +510,14 @@ The <code>userId</code> parameter will be removed in the future. Because of the 
 <tr>
 <td>firstContact</td>
 <td><code>Float</code></td>
-<td>The number of seconds after the unix epoch since first contact was made with this lead</td>
+<td>The number of seconds after the unix epoch since first contact was made with this lead.</td>
 <td>Yes</td>
 <td>No</td>
 </tr>
 <tr>
 <td>lastContact</td>
 <td><code>Float</code></td>
-<td>The number of seconds after the unix epoch since the latest contact was made with this lead</td>
+<td>The number of seconds after the unix epoch since the latest contact was made with this lead.</td>
 <td>Yes</td>
 <td>No</td>
 </tr>
@@ -525,7 +528,93 @@ The <code>userId</code> parameter will be removed in the future. Because of the 
 <td>Yes</td>
 <td>Yes</td>
 </tr>
+<tr>
+<td>conversation</td>
+<td><code>LeadConversation</code></td>
+<td>The conversation metadata object for this lead.</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
 </tbody></table>
+<h3 id='leads-schemas-leadconversation'>LeadConversation</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+<th>Readable?</th>
+<th>Writable?</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>collection</td>
+<td><code>String</code></td>
+<td>Always the value <code>lead.conversation</code>.</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>total</td>
+<td><code>Integer</code></td>
+<td>The total number of messages sent by the lead, Holmes, and the agent.</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>next<a href="#schema-leadconversation-note-1"><sup>[1]</sup></a></td>
+<td><code>String</code></td>
+<td>The url for the next 100 or fewer messages in the sequence.</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+</tbody></table>
+
+<ol style="font-size: 12px">
+  <li id="schema-leadconversation-note-1"> If this object is not part of a response in a sequence, the next value will be the url for the latest 100 messages for this lead conversation.</li>
+</ol>
+<h3 id='leads-schemas-leadmessage'>LeadMessage</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+<th>Readable?</th>
+<th>Writable?</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td><code>ObjectId</code></td>
+<td>The ID of the message for this conversation.</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>received</td>
+<td><code>Float</code></td>
+<td>The unix timestamp this message was received/sent.</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>text</td>
+<td><code>String</code></td>
+<td>The text of the message that was sent or received.</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>type<a href="#schema-leadmessage-note-1"><sup>[1]</sup></a></td>
+<td><code>String</code></td>
+<td>The type of the message. It will either be <code>message</code>, <code>response</code>, or <code>agentMessage</code>.</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+</tbody></table>
+
+<ol style="font-size: 12px">
+  <li id="schema-leadmessage-note-1">The type <code>message</code> is set if the message was sent by the lead. The type <code>response</code> is set if the message was sent by Holmes. The type <code>agentMessage</code> is set if the message was sent by the agent from homechat.</li>
+</ol>
 <h2 id='leads-list-leads'>List Leads</h2><pre class="highlight shell tab-shell"><code>curl <span class="s1">'https://api.structurely.com/v1/leads?ownerId=59275069dec26a0d20fcc41e&amp;name=john'</span> <span class="se">\</span>
   -H <span class="s1">'X-Api-Authorization: myapikey'</span>
 </code></pre>
@@ -548,7 +637,12 @@ The <code>userId</code> parameter will be removed in the future. Because of the 
       </span><span class="s2">"readiness"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
       </span><span class="s2">"firstContact"</span><span class="p">:</span><span class="w"> </span><span class="mf">1529970559.365</span><span class="p">,</span><span class="w">
       </span><span class="s2">"lastContact"</span><span class="p">:</span><span class="w"> </span><span class="mf">1530572384.613</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"muted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="s2">"muted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"conversation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"collection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lead.conversation"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.structurely.com/v1/leads/5b317f7f97f5a50048e1a516/conversation"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="p">{</span><span class="w">
       </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5a8b7ce54aecff0034c31776"</span><span class="p">,</span><span class="w">
@@ -558,7 +652,12 @@ The <code>userId</code> parameter will be removed in the future. Because of the 
       </span><span class="s2">"readiness"</span><span class="p">:</span><span class="w"> </span><span class="s2">"active"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"firstContact"</span><span class="p">:</span><span class="w"> </span><span class="mf">1519090916.902</span><span class="p">,</span><span class="w">
       </span><span class="s2">"lastContact"</span><span class="p">:</span><span class="w"> </span><span class="mf">1519090973.948</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"muted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="s2">"muted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"conversation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"collection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lead.conversation"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.structurely.com/v1/leads/5a8b7ce54aecff0034c31776/conversation"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="p">{</span><span class="w">
       </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5a690b0ef4a8dc00359afb57"</span><span class="p">,</span><span class="w">
@@ -568,7 +667,12 @@ The <code>userId</code> parameter will be removed in the future. Because of the 
       </span><span class="s2">"readiness"</span><span class="p">:</span><span class="w"> </span><span class="s2">"just_looking"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"firstContact"</span><span class="p">:</span><span class="w"> </span><span class="mf">1516833549.595</span><span class="p">,</span><span class="w">
       </span><span class="s2">"lastContact"</span><span class="p">:</span><span class="w"> </span><span class="mf">1516833576.27</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"muted"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+      </span><span class="s2">"muted"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"conversation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"collection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lead.conversation"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.structurely.com/v1/leads/5a690b0ef4a8dc00359afb57/conversation"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -663,7 +767,12 @@ The <code>ownerId</code> parameter will be removed in the future. Because of the
   </span><span class="s2">"readiness"</span><span class="p">:</span><span class="w"> </span><span class="s2">"researching"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"firstContact"</span><span class="p">:</span><span class="w"> </span><span class="mf">1529970559.365</span><span class="p">,</span><span class="w">
   </span><span class="s2">"lastContact"</span><span class="p">:</span><span class="w"> </span><span class="mf">1530572384.613</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"muted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+  </span><span class="s2">"muted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"conversation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"collection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lead.conversation"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.structurely.com/v1/leads/5ab1973c62c5be0034c2102c/conversation"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">108</span><span class="w">
+  </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>This endpoint returns a specific lead.</p>
@@ -681,6 +790,81 @@ The <code>ownerId</code> parameter will be removed in the future. Because of the
 <td>The ID of the lead to retrieve</td>
 </tr>
 </tbody></table>
+<h2 id='leads-get-lead-conversation'>Get Lead Conversation</h2><pre class="highlight shell tab-shell"><code>curl <span class="s1">'https://api.structurely.com/v1/leads/5ab1973c62c5be0034c2102c/conversation'</span> <span class="se">\</span>
+  -H <span class="s1">'X-Api-Authorization: myapikey'</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"_metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"collection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lead.conversation"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.structurely.com/v1/leads/5ab1973c62c5be0034c2102c/conversation?before=1540400827.866"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">108</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"conversation"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5bd0a6bbbfd5b5002268f971"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"received"</span><span class="p">:</span><span class="w"> </span><span class="mf">1540400827.866</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"It's always helpful to have financing figured out early in the process!"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"response"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">,</span><span class="w">
+    </span><span class="p">,</span><span class="w">
+    </span><span class="p">,</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5c018167def58d0021d267cd"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"received"</span><span class="p">:</span><span class="w"> </span><span class="mf">1543602535.414</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Thank's for all the help. I'm really excited to see this home tomorrow."</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"message"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint returns a specific lead&#39;s conversaton. It will return no more than 100 messages at a time. The <code>_metadata.next</code> value gives the url that will return the next batch of messages in the sequence. If there are no more messages <code>_metadata.next</code> will be <code>null</code>. If the <code>before</code> parameter is used, the next batch will be before the earliest message and if <code>after</code> is used, the next batch will be after the latest message. If there is no parameter defined the latest 100 messages are returned and the <code>_metadata.next</code> url will be for the previous batch with a before parameter. The <code>_metadata.total</code> value returns the total number of messages in the conversation.</p>
+<h3 id='leads-get-lead-conversation-http-request'>HTTP Request</h3>
+<p><code>GET https://api.structurely.com/v1/leads/&lt;id&gt;/conversation</code></p>
+<h3 id='leads-get-lead-conversation-url-parameters'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>The ID of the lead to retrieve the conversation for</td>
+</tr>
+</tbody></table>
+<h3 id='leads-get-lead-conversation-query-parameters'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required?</th>
+<th>Default</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>before<a href="#lead-conversation-note-1"><sup>[1]</sup></a></td>
+<td><code>Float</code></td>
+<td>The unix timestamp all messages must have been received before</td>
+<td>No</td>
+<td>None</td>
+</tr>
+<tr>
+<td>after<a href="#lead-conversation-note-1"><sup>[1]</sup></a></td>
+<td><code>Float</code></td>
+<td>The unix timestamp all messages must have been received after</td>
+<td>No</td>
+<td>None</td>
+</tr>
+</tbody></table>
+
+<ol style="font-size: 12px">
+  <li id="lead-conversation-note-1">The <code>before</code> and <code>after</code> parameters are mutually exclusive. Neither is required but only one may be present.</li>
+</ol>
 <h2 id='leads-update-lead'>Update Lead</h2><pre class="highlight shell tab-shell"><code>curl <span class="s1">'https://api.structurely.com/v1/leads/5ab1973c62c5be0034c2102c'</span> <span class="se">\</span>
   -X PATCH <span class="se">\</span>
   -H <span class="s1">'X-Api-Authorization: myapikey'</span> <span class="se">\</span>
@@ -698,7 +882,12 @@ The <code>ownerId</code> parameter will be removed in the future. Because of the
   </span><span class="s2">"readiness"</span><span class="p">:</span><span class="w"> </span><span class="s2">"just_looking"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"firstContact"</span><span class="p">:</span><span class="w"> </span><span class="mf">1529970559.365</span><span class="p">,</span><span class="w">
   </span><span class="s2">"lastContact"</span><span class="p">:</span><span class="w"> </span><span class="mf">1530572384.613</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"muted"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+  </span><span class="s2">"muted"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"conversation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"collection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lead.conversation"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.structurely.com/v1/leads/5ab1973c62c5be0034c2102c/conversation"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">108</span><span class="w">
+  </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>This endpoint updates a specific lead and returns the modified lead object.</p>
