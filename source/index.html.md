@@ -11,6 +11,7 @@ includes:
   - agents
   - leads
   - conversations
+  - conversationWebhooks
   - errors
 
 search: true

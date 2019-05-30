@@ -293,6 +293,35 @@
               </ul>
           </li>
           <li>
+            <a href="#conversation-webhooks" class="toc-h1 toc-link" data-title="Conversation Webhooks">Conversation Webhooks</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#conversation-webhooks-api-schemas" class="toc-h2 toc-link" data-title="API Schemas">API Schemas</a>
+                  </li>
+                  <li>
+                    <a href="#conversation-webhooks-webhook-schemas" class="toc-h2 toc-link" data-title="Webhook Schemas">Webhook Schemas</a>
+                  </li>
+                  <li>
+                    <a href="#conversation-webhooks-conversation-webhook-overview" class="toc-h2 toc-link" data-title="Conversation Webhook Overview">Conversation Webhook Overview</a>
+                  </li>
+                  <li>
+                    <a href="#conversation-webhooks-list-conversation-webhooks" class="toc-h2 toc-link" data-title="List Conversation Webhooks">List Conversation Webhooks</a>
+                  </li>
+                  <li>
+                    <a href="#conversation-webhooks-create-conversation-webhook" class="toc-h2 toc-link" data-title="Create Conversation Webhook">Create Conversation Webhook</a>
+                  </li>
+                  <li>
+                    <a href="#conversation-webhooks-get-conversation-webhook" class="toc-h2 toc-link" data-title="Get Conversation Webhook">Get Conversation Webhook</a>
+                  </li>
+                  <li>
+                    <a href="#conversation-webhooks-update-conversation-webhook" class="toc-h2 toc-link" data-title="Update Conversation Webhook">Update Conversation Webhook</a>
+                  </li>
+                  <li>
+                    <a href="#conversation-webhooks-delete-conversation-webhook" class="toc-h2 toc-link" data-title="Delete Conversation Webhook">Delete Conversation Webhook</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
           </li>
       </ul>
@@ -1624,6 +1653,527 @@ Be sure to include the header `Content-Type: application/json` with your request
 <aside class="notice">
 Be sure to include the header `Content-Type: application/json` with your request.
 </aside>
+<h1 id='conversation-webhooks'>Conversation Webhooks</h1>
+<p>The ConversationWebhook resource represents a url endpoint that will be called for certain actions called triggers. Examples of triggers include conversation updates, response creation, and fallback suggested. Each webhook belongs to an client/API key and all conversations created by that client will be linked to webhooks of the same client.</p>
+<h2 id='conversation-webhooks-api-schemas'>API Schemas</h2><h3 id='conversation-webhooks-api-schemas-conversationwebhook'>ConversationWebhook</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+<th>Readable?</th>
+<th>Writable?</th>
+<th>Required?</th>
+<th>Default</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td><code>ObjectId</code></td>
+<td>The ID of the conversation webhook this resource represents.</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td>name</td>
+<td><code>String</code></td>
+<td>The user friendly name of the webhook. Has no functional value but useful for describing the webhook&#39;s purpose.</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td>target</td>
+<td><code>String</code></td>
+<td>A valid url that the webhook payload will be sent to.</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td>secret</td>
+<td><code>String</code></td>
+<td>A secret key that will be used as a http header to ensure the sender is our system.</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td>version</td>
+<td><code>String</code></td>
+<td>A string indicating the API version. (e.g. &#39;v1&#39;)</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+<td><code>&#39;v1&#39;</code></td>
+</tr>
+<tr>
+<td>triggers</td>
+<td><code>List&lt;String&gt;</code></td>
+<td>The list of triggers this webhook is subscribed to.</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td>createdAt</td>
+<td><code>DateTime</code></td>
+<td>The datetime string of when this webhook was created.</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td>updatedAt</td>
+<td><code>DateTime</code></td>
+<td>The datetime string of when this webhook was last updated.</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id='conversation-webhooks-webhook-schemas'>Webhook Schemas</h2><h3 id='conversation-webhooks-webhook-schemas-conversationslotupdate'>ConversationSlotUpdate</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>name</td>
+<td><code>String</code></td>
+<td>The name of the slot being updated.</td>
+</tr>
+<tr>
+<td>action</td>
+<td><code>String</code></td>
+<td>The action to take on the slot. Either <code>&#39;set&#39;</code> or <code>&#39;push&#39;</code> for scalar or list types respectively.</td>
+</tr>
+<tr>
+<td>value<a href="#webhook-schemas-note-1"><sup>[1]</sup></a></td>
+<td><code>Any</code><a href="#webhook-schemas-note-2"><sup>[2]</sup></a></td>
+<td>The new value being set for this slot. Only exists if the action is <code>&#39;set&#39;</code>.</td>
+</tr>
+<tr>
+<td>values<a href="#webhook-schemas-note-1"><sup>[1]</sup></a></td>
+<td><code>List&lt;Any&gt;</code><a href="#webhook-schemas-note-2"><sup>[2]</sup></a></td>
+<td>The list of values being added to current list of values for this slot. Only exists if the action is <code>&#39;push&#39;</code>.</td>
+</tr>
+</tbody></table>
+<h3 id='conversation-webhooks-webhook-schemas-conversationstageupdate'>ConversationStageUpdate</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>name</td>
+<td><code>String</code></td>
+<td>The name of the stage that is being added or removed from the stage list.</td>
+</tr>
+<tr>
+<td>action</td>
+<td><code>String</code></td>
+<td>The action to take for this stage. Will be either <code>&#39;add&#39;</code> or <code>&#39;remove&#39;</code></td>
+</tr>
+</tbody></table>
+<h3 id='conversation-webhooks-webhook-schemas-conversationupdates'>ConversationUpdates</h3>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>slots</td>
+<td><code>List&lt;ConversationSlotUpdate&gt;</code><a href="#conversation-webhooks-webhook-schemas-conversationslotupdate"><sup>[^]</sup></a></td>
+<td>Conversation slot updates.</td>
+</tr>
+<tr>
+<td>stages</td>
+<td><code>List&lt;ConversationStageUpdate&gt;</code><a href="#conversation-webhooks-webhook-schemas-conversationstageupdate"><sup>[^]</sup></a></td>
+<td>Conversation stage updates.</td>
+</tr>
+</tbody></table>
+
+<ol style="font-size: 12px">
+    <li id="webhook-schemas-note-1"><code>value</code> and <code>values</code> are mutually exclusive. Only one will exist at a time and the other will be undefined.</li>
+    <li id="webhook-schemas-note-2">See <a href="#conversations-slots-contexts-and-stages-slots">slots</a> for more info on each slot and it's type.</li>
+</ol>
+<h2 id='conversation-webhooks-conversation-webhook-overview'>Conversation Webhook Overview</h2>
+<p>Webhooks are used to receive updates for conversations available on the API. These updates are used to notify when a conversations state has changed or when an action like sending a response should be taken. To use webhooks, create a webhook with the triggers that you want to listen for and the target set to an endpoint you control in your system.</p>
+<h3 id='conversation-webhooks-conversation-webhook-overview-response-created'>Response Created</h3>
+<blockquote>
+<p>Response Created Example</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"trigger"</span><span class="p">:</span><span class="w"> </span><span class="s2">"response:created"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5c09a4416241ea2c293275b8"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"response"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Can you tell me more about the location you're interested in?"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h4 id='conversation-webhooks-conversation-webhook-overview-response-created-trigger'>Trigger</h4>
+<p><code>response:created</code></p>
+<h4 id='conversation-webhooks-conversation-webhook-overview-response-created-description'>Description</h4>
+<p>This trigger is called when a new response for a conversation has been created. Responses are generated by Holmes for a message added to the relevant conversation. Use this event to know when and what to respond to a lead with after a lead sends a message.</p>
+<h4 id='conversation-webhooks-conversation-webhook-overview-response-created-payload'>Payload</h4>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>trigger</td>
+<td><code>String</code></td>
+<td>The trigger that triggered this webhook.</td>
+</tr>
+<tr>
+<td>id</td>
+<td><code>ObjectId</code></td>
+<td>The id of the conversation.</td>
+</tr>
+<tr>
+<td>response</td>
+<td><code>Message</code><a href="#conversations-schemas-message"><sup>[^]</sup></a></td>
+<td>A truncated <code>Message</code> object containing only the text field. The text was generated by Holmes to be sent as a response to a message created in this conversation.</td>
+</tr>
+</tbody></table>
+<h3 id='conversation-webhooks-conversation-webhook-overview-conversation-updated'>Conversation Updated</h3>
+<blockquote>
+<p>Conversation Updated Example</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"trigger"</span><span class="p">:</span><span class="w"> </span><span class="s2">"conversation:updated"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5c09a4416241ea2c293275b8"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"updates"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"slots"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"email"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"set"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jdoe@example.com"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"address"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"push"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"values"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"123 Main St."</span><span class="p">,</span><span class="w"> </span><span class="s2">"456 North Ave."</span><span class="p">]</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="s2">"stages"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"not_responded"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"remove"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"responded"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"add"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"needs_follow_up"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"add"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h4 id='conversation-webhooks-conversation-webhook-overview-conversation-updated-trigger'>Trigger</h4>
+<p><code>conversation:updated</code></p>
+<h4 id='conversation-webhooks-conversation-webhook-overview-conversation-updated-description'>Description</h4>
+<p>This trigger is called when the convsersation object is updated. It will include the updates to the slots and stages. Use this to maintain state between your system and the Structurely API without polling.</p>
+<h4 id='conversation-webhooks-conversation-webhook-overview-conversation-updated-payload'>Payload</h4>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>trigger</td>
+<td><code>String</code></td>
+<td>The trigger that triggered this webhook.</td>
+</tr>
+<tr>
+<td>id</td>
+<td><code>ObjectId</code></td>
+<td>The id of the conversation.</td>
+</tr>
+<tr>
+<td>updates</td>
+<td><code>ConversationUpdates</code><a href="#conversation-webhooks-webhook-schemas-conversationupdates"><sup>[^]</sup></a></td>
+<td>The updates to the conversation stages and slots.</td>
+</tr>
+</tbody></table>
+<h2 id='conversation-webhooks-list-conversation-webhooks'>List Conversation Webhooks</h2><pre class="highlight shell tab-shell"><code>curl <span class="s1">'https://api.structurely.com/v1/conversationWebhooks?name=My%20&amp;trigger=response:created'</span> <span class="se">\</span>
+    -H <span class="s1">'X-Api-Authorization: myapikey'</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"_metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"collection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"conversationWebhooks"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"limit"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"offset"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"conversationWebhooks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5ceec43ce1b5b412ba9d0e73"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My Webhook"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"target"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.example.com/webhooks/endpoint"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"secret"</span><span class="p">:</span><span class="w"> </span><span class="s2">"nLjs7uu5AvQfTjqXpXHnSOfj0h8bvc0w0eeZNWgFR1pJo9Gb"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v1"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"triggers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"conversation:updated"</span><span class="p">,</span><span class="w"> </span><span class="s2">"response:created"</span><span class="p">],</span><span class="w">
+            </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-05-29T12:41:16.000Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-05-29T12:41:16.000Z"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5ceed39ce1b5b412ba9d0e74"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My Other Webhook"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"target"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://hooks.example.com/structurely/response_created"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"secret"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ZQjevvm3JW7Y8drTROfoRokuYR75BPpAq7NDj0MYkQS2pQVa"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v1"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"triggers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"response:created"</span><span class="p">],</span><span class="w">
+            </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-05-29T13:48:20.000Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-05-29T13:48:20.000Z"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint returns all webhooks that match the provided parameters. The objects returned will match all the provided parameters.</p>
+<h3 id='conversation-webhooks-list-conversation-webhooks-http-request'>HTTP Request</h3>
+<p><code>GET https://api.structurely.com/v1/conversationWebhooks</code></p>
+<h3 id='conversation-webhooks-list-conversation-webhooks-query-parameters'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required?</th>
+<th>Default</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>limit</td>
+<td><code>Integer[1,100]</code></td>
+<td>The number of results to return</td>
+<td>No</td>
+<td><code>10</code></td>
+</tr>
+<tr>
+<td>offset</td>
+<td><code>Integer[0,)</code></td>
+<td>Indicates the number of results to skip</td>
+<td>No</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td>sort<a href="#list-conversationwebhooks-note-1"><sup>[1]</sup></a></td>
+<td><code>String</code></td>
+<td>A comma separated list of fields to sort by</td>
+<td>No</td>
+<td><code>-createdAt</code></td>
+</tr>
+<tr>
+<td>name<a href="#list-conversationwebhooks-note-2"><sup>[2]</sup></a></td>
+<td><code>String</code></td>
+<td>A partial or full name of a webhook to search</td>
+<td>No</td>
+<td>None</td>
+</tr>
+<tr>
+<td>target</td>
+<td><code>String</code></td>
+<td>A exact URL target of a webhook to match</td>
+<td>No</td>
+<td>None</td>
+</tr>
+<tr>
+<td>trigger</td>
+<td><code>String</code></td>
+<td>An exact trigger that must be in a matched webhooks triggers list. Matched webhooks must include this trigger exactly. Matched webhooks may include other triggers.</td>
+<td>No</td>
+<td>None</td>
+</tr>
+</tbody></table>
+
+<ol style="font-size: 12px">
+  <li id="list-conversationwebhooks-note-1">The sort string allows multiple fields with left to right precedence with optional <code>-</code> or <code>+</code> for controlling ascending and descending order</li>
+  <li id="list-conversationwebhooks-note-2">String search fields use a case insensitive partial filter that can match any part of the string unless otherwise noted</li>
+</ol>
+
+<aside class="notice">
+Be sure to replace myapikey with your API key.
+</aside>
+<h2 id='conversation-webhooks-create-conversation-webhook'>Create Conversation Webhook</h2><pre class="highlight shell tab-shell"><code>curl <span class="s1">'https://api.structurely.com/v1/conversationWebhooks'</span> <span class="se">\</span>
+  -X POST <span class="se">\</span>
+  -H <span class="s1">'X-Api-Authorization: myapikey'</span> <span class="se">\</span>
+  -H <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  -d <span class="s1">'{ "name": "My Webhook", "target": "https://www.example.com/webhooks/endpoint", "triggers": ["conversation:updated", "response:created"] }'</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5ceec43ce1b5b412ba9d0e73"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My Webhook"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"target"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.example.com/webhooks/endpoint"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"secret"</span><span class="p">:</span><span class="w"> </span><span class="s2">"nLjs7uu5AvQfTjqXpXHnSOfj0h8bvc0w0eeZNWgFR1pJo9Gb"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v1"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"triggers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"conversation:updated"</span><span class="p">,</span><span class="w"> </span><span class="s2">"response:created"</span><span class="p">],</span><span class="w">
+    </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-05-29T12:41:16Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-05-29T12:41:16Z"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint creates and returns a new conversation webhook.</p>
+<h3 id='conversation-webhooks-create-conversation-webhook-http-request'>HTTP Request</h3>
+<p><code>POST https://api.structurely.com/v1/conversationWebhooks</code></p>
+<h3 id='conversation-webhooks-create-conversation-webhook-body-parameters'>Body Parameters<a href="#conversation-webhooks-api-schemas-conversationwebhook"><sup>[^]</sup></a></h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>name</td>
+<td><code>String</code></td>
+</tr>
+<tr>
+<td>target</td>
+<td><code>String</code></td>
+</tr>
+<tr>
+<td>triggers</td>
+<td><code>List&lt;String&gt;</code></td>
+</tr>
+</tbody></table>
+
+<aside class="notice">
+Be sure to include the header `Content-Type: application/json` with your request.
+</aside>
+<h2 id='conversation-webhooks-get-conversation-webhook'>Get Conversation Webhook</h2><pre class="highlight shell tab-shell"><code>curl <span class="s1">'https://api.structurely.com/v1/conversationWebhooks/5ceec43ce1b5b412ba9d0e73'</span> <span class="se">\</span>
+    -H <span class="s1">'X-Api-Authorization: myapikey'</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5ceec43ce1b5b412ba9d0e73"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My Webhook"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"target"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.example.com/webhooks/endpoint"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"secret"</span><span class="p">:</span><span class="w"> </span><span class="s2">"nLjs7uu5AvQfTjqXpXHnSOfj0h8bvc0w0eeZNWgFR1pJo9Gb"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v1"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"triggers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"conversation:updated"</span><span class="p">,</span><span class="w"> </span><span class="s2">"response:created"</span><span class="p">],</span><span class="w">
+    </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-05-29T12:41:16Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-05-29T12:41:16Z"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='conversation-webhooks-get-conversation-webhook-http-request'>HTTP Request</h3>
+<p><code>GET https://api.structurely.com/v1/conversationWebhooks/&lt;id&gt;</code></p>
+<h3 id='conversation-webhooks-get-conversation-webhook-url-parameters'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>The ID of the conversation webhook to retrieve</td>
+</tr>
+</tbody></table>
+<h2 id='conversation-webhooks-update-conversation-webhook'>Update Conversation Webhook</h2><pre class="highlight shell tab-shell"><code>curl <span class="s1">'https://api.structurely.com/v1/conversationWebhooks/5ceec43ce1b5b412ba9d0e73'</span> <span class="se">\</span>
+    -X PATCH <span class="se">\</span>
+    -H <span class="s1">'X-Api-Authorization: myapikey'</span> <span class="se">\</span>
+    -H <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+    -d <span class="s1">'{ "name": "My Cool Webhook", "target": "https://hooks.example.com/structurely/conversation_updated", "triggers": ["conversation:updated"] }'</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5ceec43ce1b5b412ba9d0e73"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My Cool Webhook"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"target"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://hooks.example.com/structurely/conversation_updated"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"secret"</span><span class="p">:</span><span class="w"> </span><span class="s2">"nLjs7uu5AvQfTjqXpXHnSOfj0h8bvc0w0eeZNWgFR1pJo9Gb"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v1"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"triggers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"conversation:updated"</span><span class="p">],</span><span class="w">
+    </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-05-29T12:41:16Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-05-29T12:41:16Z"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='conversation-webhooks-update-conversation-webhook-http-request'>HTTP Request</h3>
+<p><code>PATCH https://api.structurely.com/v1/conversationWebhooks/&lt;id&gt;</code></p>
+<h3 id='conversation-webhooks-update-conversation-webhook-url-parameters'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>The ID of the conversation webhook to update</td>
+</tr>
+</tbody></table>
+<h3 id='conversation-webhooks-update-conversation-webhook-body-parameters'>Body Parameters<a href="#conversation-webhooks-api-schemas-conversationwebhook"><sup>[^]</sup></a></h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>name</td>
+<td><code>String</code></td>
+</tr>
+<tr>
+<td>target</td>
+<td><code>String</code></td>
+</tr>
+<tr>
+<td>triggers</td>
+<td><code>List&lt;String&gt;</code></td>
+</tr>
+</tbody></table>
+
+<aside class="notice">
+Be sure to include the header `Content-Type: application/json` with your request.
+</aside>
+<h2 id='conversation-webhooks-delete-conversation-webhook'>Delete Conversation Webhook</h2><pre class="highlight shell tab-shell"><code>curl <span class="s1">'https://api.structurely.com/v1/conversationWebhooks/5ceec43ce1b5b412ba9d0e73'</span> <span class="se">\</span>
+    -X DELETE
+    -H <span class="s1">'X-Api-Authorization: myapikey'</span>
+</code></pre>
+<blockquote>
+<p>The above command returns an empty response with the status 204 if successful</p>
+</blockquote>
+<h3 id='conversation-webhooks-delete-conversation-webhook-http-request'>HTTP Request</h3>
+<p><code>DELETE https://api.structurely.com/v1/conversationWebhooks/&lt;id&gt;</code></p>
+<h3 id='conversation-webhooks-delete-conversation-webhook-url-parameters'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>The ID of the conversation webhook to delete</td>
+</tr>
+</tbody></table>
 <h1 id='errors'>Errors</h1>
 <p>The Holmes API uses the following error codes:</p>
 
