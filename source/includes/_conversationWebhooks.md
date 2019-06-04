@@ -33,7 +33,8 @@ values[<sup>[1]</sup>](#webhook-schemas-note-1) | `List<Any>`[<sup>[2]</sup>](#w
 Field | Type | Description
 ----- | ---- | -----------
 name | `String` | The name of the stage that is being added or removed from the stage list.
-action | `String` | The action to take for this stage. Will be either `'add'` or `'remove'`
+action | `String` | The action to take for this stage. Will be either `'add'` or `'remove'`.
+reasons | `List<String>` | A list of reasons why this stage occurred. A list of either intent names or slot comparisons.
 
 ### ConversationUpdates
 
@@ -105,15 +106,18 @@ response | `Message`[<sup>[^]</sup>](#conversations-schemas-message) | A truncat
         "stages": [
             {
                 "name": "not_responded",
-                "action": "remove"
+                "action": "remove",
+                "reasons": []
             },
             {
                 "name": "responded",
-                "action": "add"
+                "action": "add",
+                "reasons": []
             },
             {
                 "name": "needs_follow_up",
-                "action": "add"
+                "action": "add",
+                "reasons": ["financing_status is false"]
             }
         ]
     }
