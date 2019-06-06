@@ -1785,7 +1785,12 @@ Be sure to include the header `Content-Type: application/json` with your request
 <tr>
 <td>action</td>
 <td><code>String</code></td>
-<td>The action to take for this stage. Will be either <code>&#39;add&#39;</code> or <code>&#39;remove&#39;</code></td>
+<td>The action to take for this stage. Will be either <code>&#39;add&#39;</code> or <code>&#39;remove&#39;</code>.</td>
+</tr>
+<tr>
+<td>reasons</td>
+<td><code>List&lt;String&gt;</code></td>
+<td>A list of reasons why this stage occurred. A list of either intent names or slot comparisons.</td>
 </tr>
 </tbody></table>
 <h3 id='conversation-webhooks-webhook-schemas-conversationupdates'>ConversationUpdates</h3>
@@ -1876,15 +1881,18 @@ Be sure to include the header `Content-Type: application/json` with your request
         </span><span class="s2">"stages"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
             </span><span class="p">{</span><span class="w">
                 </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"not_responded"</span><span class="p">,</span><span class="w">
-                </span><span class="s2">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"remove"</span><span class="w">
+                </span><span class="s2">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"remove"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"reasons"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
             </span><span class="p">},</span><span class="w">
             </span><span class="p">{</span><span class="w">
                 </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"responded"</span><span class="p">,</span><span class="w">
-                </span><span class="s2">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"add"</span><span class="w">
+                </span><span class="s2">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"add"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"reasons"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
             </span><span class="p">},</span><span class="w">
             </span><span class="p">{</span><span class="w">
                 </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"needs_follow_up"</span><span class="p">,</span><span class="w">
-                </span><span class="s2">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"add"</span><span class="w">
+                </span><span class="s2">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"add"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"reasons"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"financing_status is false"</span><span class="p">]</span><span class="w">
             </span><span class="p">}</span><span class="w">
         </span><span class="p">]</span><span class="w">
     </span><span class="p">}</span><span class="w">
