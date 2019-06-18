@@ -71,19 +71,40 @@ context | `String` | The outgoing context of this response. Used by Holmes to cl
 
 Name | Type | Description
 ---- | ---- | -----------
-name | String | The name of the lead.
-email | String | The email of the lead.
-phone | String | The phone number of the lead.
-address | String |  The address of the property a buyer lead is interested in.
-selling_address | String | The address of the property a seller lead is trying to sell.
-lead_types | List<String> | A list of lead types this lead is considered as. Can be any combination of `buyer`, `seller`, or `renter`.
-lead_source | String | The source of the lead. Can be any string.
-agent_name | String | The name of the agent Holmes is messaging on the behalf of.
-agent_phone | String | The phone of the agent.
-agent_email | String | The email of the agent.
-agency_name | String | The name of the agency the agent works for or Holmes is messaging on the behalf of.
-office_location | String | The general location of the realtor office the system is representing.
-readiness | String | The readiness of the lead. Can be one of the following values: `active`, `just_looking`, `researching`, or an empty string.
+name | `String` | The name of the lead.
+email | `String` | The email of the lead.
+phone | `String` | The phone number of the lead.
+address | `String` |  The address of the property a buyer lead is interested in.
+selling_address | `String` | The address of the property a seller lead is trying to sell.
+baths | `Float` | The specific number bathrooms the lead is looking for.
+baths_min | `Float` | The minimum number of bathrooms the lead is looking for.
+baths_max | `Float` | The maximum number of bathrooms the lead is looking for.
+beds | `Integer` | The specific number of bedrooms the lead is looking for.
+beds_min | `Integer` | The minimum number of bedrooms the lead is looking for.
+beds_max | `Integer` | The maximum number of bedrooms the lead is looking for.
+price | `Float` | The specific price the lead is looking for.
+price_min | `Float` | The minimum price the lead is looking for.
+price_max | `Float` | The maximum price the lead is looking for.
+location | `String` | The general location the lead is interested in buying.
+readiness | `String` | The readiness of the lead. Can be one of the following values: `active`, `just_looking`, `researching`, or an empty string.
+lead_priority | `String` | 
+lead_types | `List<String>` | A list of lead types this lead is considered as. Can be any combination of `buyer`, `seller`, or `renter`.
+lead_source | `String` | The source of the lead. Can be any string.
+timeframe | `String` | The general timeframe a lead is looking to move within.
+contingency | `Boolean` | True if the lead needs to sell their current home before buying.
+agent_status | `Boolean` | True if the lead is already working with an agent.
+financing_status | `Boolean` | True if the lead is prequalified or paying with cash.
+is_investor | `Boolean` | True if the lead is an investor buying property.
+is_agent | `Boolean` | True if the lead is an agent.
+call_availability | `String` | The time when the lead is available for a call with the agent.
+appointment | `String` | The time the lead is available for an appointment.
+listing_appointment | `String` | The time the lead is available for an appointment about their listing.
+showing_appointment | `String` | The time the lead is available for a showing appointment.
+agent_name | `String` | The name of the agent Holmes is messaging on the behalf of.
+agent_phone | `String` | The phone of the agent.
+agent_email | `String` | The email of the agent.
+agency_name | `String` | The name of the agency the agent works for or Holmes is messaging on the behalf of.
+office_location | `String` | The general location of the realtor office the system is representing.
 
 ### Contexts
 
@@ -126,7 +147,7 @@ curl 'https://api.structurely.com/v1/conversations' \
   -X POST \
   -H 'X-Api-Authorization: myapikey' \
   -H 'Content-Type: application/json' \
-  -d '{ "settings": { "time_zone": "America/Chicago" }, "slots": [{ "name": "email", "value": "jdoe@example.com" }], "messages": [{ "response": { "text": "Hello, what is your name?", "received": "2018-12-08T15:20:00.000Z" }, "context": "expect_name }, { "message": { "text": "John", "received": "2018-12-08T16:34:00.000Z" } }] }'
+  -d '{ "settings": { "timeZone": "America/Chicago" }, "slots": [{ "name": "email", "value": "jdoe@example.com" }], "messages": [{ "response": { "text": "Hello, what is your name?", "received": "2018-12-08T15:20:00.000Z" }, "context": "expect_name }, { "message": { "text": "John", "received": "2018-12-08T16:34:00.000Z" } }] }'
 ```
 
 > The above command returns JSON structured like this:

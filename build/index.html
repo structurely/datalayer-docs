@@ -1210,68 +1210,173 @@ This API resource is subject to change. Be prepared to make changes in the futur
 </thead><tbody>
 <tr>
 <td>name</td>
-<td>String</td>
+<td><code>String</code></td>
 <td>The name of the lead.</td>
 </tr>
 <tr>
 <td>email</td>
-<td>String</td>
+<td><code>String</code></td>
 <td>The email of the lead.</td>
 </tr>
 <tr>
 <td>phone</td>
-<td>String</td>
+<td><code>String</code></td>
 <td>The phone number of the lead.</td>
 </tr>
 <tr>
 <td>address</td>
-<td>String</td>
+<td><code>String</code></td>
 <td>The address of the property a buyer lead is interested in.</td>
 </tr>
 <tr>
 <td>selling_address</td>
-<td>String</td>
+<td><code>String</code></td>
 <td>The address of the property a seller lead is trying to sell.</td>
 </tr>
 <tr>
+<td>baths</td>
+<td><code>Float</code></td>
+<td>The specific number bathrooms the lead is looking for.</td>
+</tr>
+<tr>
+<td>baths_min</td>
+<td><code>Float</code></td>
+<td>The minimum number of bathrooms the lead is looking for.</td>
+</tr>
+<tr>
+<td>baths_max</td>
+<td><code>Float</code></td>
+<td>The maximum number of bathrooms the lead is looking for.</td>
+</tr>
+<tr>
+<td>beds</td>
+<td><code>Integer</code></td>
+<td>The specific number of bedrooms the lead is looking for.</td>
+</tr>
+<tr>
+<td>beds_min</td>
+<td><code>Integer</code></td>
+<td>The minimum number of bedrooms the lead is looking for.</td>
+</tr>
+<tr>
+<td>beds_max</td>
+<td><code>Integer</code></td>
+<td>The maximum number of bedrooms the lead is looking for.</td>
+</tr>
+<tr>
+<td>price</td>
+<td><code>Float</code></td>
+<td>The specific price the lead is looking for.</td>
+</tr>
+<tr>
+<td>price_min</td>
+<td><code>Float</code></td>
+<td>The minimum price the lead is looking for.</td>
+</tr>
+<tr>
+<td>price_max</td>
+<td><code>Float</code></td>
+<td>The maximum price the lead is looking for.</td>
+</tr>
+<tr>
+<td>location</td>
+<td><code>String</code></td>
+<td>The general location the lead is interested in buying.</td>
+</tr>
+<tr>
+<td>readiness</td>
+<td><code>String</code></td>
+<td>The readiness of the lead. Can be one of the following values: <code>active</code>, <code>just_looking</code>, <code>researching</code>, or an empty string.</td>
+</tr>
+<tr>
+<td>lead_priority</td>
+<td><code>String</code></td>
+<td></td>
+</tr>
+<tr>
 <td>lead_types</td>
-<td>List<String></td>
+<td><code>List&lt;String&gt;</code></td>
 <td>A list of lead types this lead is considered as. Can be any combination of <code>buyer</code>, <code>seller</code>, or <code>renter</code>.</td>
 </tr>
 <tr>
 <td>lead_source</td>
-<td>String</td>
+<td><code>String</code></td>
 <td>The source of the lead. Can be any string.</td>
 </tr>
 <tr>
+<td>timeframe</td>
+<td><code>String</code></td>
+<td>The general timeframe a lead is looking to move within.</td>
+</tr>
+<tr>
+<td>contingency</td>
+<td><code>Boolean</code></td>
+<td>True if the lead needs to sell their current home before buying.</td>
+</tr>
+<tr>
+<td>agent_status</td>
+<td><code>Boolean</code></td>
+<td>True if the lead is already working with an agent.</td>
+</tr>
+<tr>
+<td>financing_status</td>
+<td><code>Boolean</code></td>
+<td>True if the lead is prequalified or paying with cash.</td>
+</tr>
+<tr>
+<td>is_investor</td>
+<td><code>Boolean</code></td>
+<td>True if the lead is an investor buying property.</td>
+</tr>
+<tr>
+<td>is_agent</td>
+<td><code>Boolean</code></td>
+<td>True if the lead is an agent.</td>
+</tr>
+<tr>
+<td>call_availability</td>
+<td><code>String</code></td>
+<td>The time when the lead is available for a call with the agent.</td>
+</tr>
+<tr>
+<td>appointment</td>
+<td><code>String</code></td>
+<td>The time the lead is available for an appointment.</td>
+</tr>
+<tr>
+<td>listing_appointment</td>
+<td><code>String</code></td>
+<td>The time the lead is available for an appointment about their listing.</td>
+</tr>
+<tr>
+<td>showing_appointment</td>
+<td><code>String</code></td>
+<td>The time the lead is available for a showing appointment.</td>
+</tr>
+<tr>
 <td>agent_name</td>
-<td>String</td>
+<td><code>String</code></td>
 <td>The name of the agent Holmes is messaging on the behalf of.</td>
 </tr>
 <tr>
 <td>agent_phone</td>
-<td>String</td>
+<td><code>String</code></td>
 <td>The phone of the agent.</td>
 </tr>
 <tr>
 <td>agent_email</td>
-<td>String</td>
+<td><code>String</code></td>
 <td>The email of the agent.</td>
 </tr>
 <tr>
 <td>agency_name</td>
-<td>String</td>
+<td><code>String</code></td>
 <td>The name of the agency the agent works for or Holmes is messaging on the behalf of.</td>
 </tr>
 <tr>
 <td>office_location</td>
-<td>String</td>
+<td><code>String</code></td>
 <td>The general location of the realtor office the system is representing.</td>
-</tr>
-<tr>
-<td>readiness</td>
-<td>String</td>
-<td>The readiness of the lead. Can be one of the following values: <code>active</code>, <code>just_looking</code>, <code>researching</code>, or an empty string.</td>
 </tr>
 </tbody></table>
 <h3 id='conversations-slots-contexts-and-stages-contexts'>Contexts</h3>
@@ -1370,7 +1475,7 @@ This API resource is subject to change. Be prepared to make changes in the futur
   -X POST <span class="se">\</span>
   -H <span class="s1">'X-Api-Authorization: myapikey'</span> <span class="se">\</span>
   -H <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
-  -d <span class="s1">'{ "settings": { "time_zone": "America/Chicago" }, "slots": [{ "name": "email", "value": "jdoe@example.com" }], "messages": [{ "response": { "text": "Hello, what is your name?", "received": "2018-12-08T15:20:00.000Z" }, "context": "expect_name }, { "message": { "text": "John", "received": "2018-12-08T16:34:00.000Z" } }] }'</span>
+  -d <span class="s1">'{ "settings": { "timeZone": "America/Chicago" }, "slots": [{ "name": "email", "value": "jdoe@example.com" }], "messages": [{ "response": { "text": "Hello, what is your name?", "received": "2018-12-08T15:20:00.000Z" }, "context": "expect_name }, { "message": { "text": "John", "received": "2018-12-08T16:34:00.000Z" } }] }'</span>
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
