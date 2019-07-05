@@ -244,6 +244,9 @@
                   <li>
                     <a href="#agents-list-agents" class="toc-h2 toc-link" data-title="List Agents">List Agents</a>
                   </li>
+                  <li>
+                    <a href="#agents-create-lead" class="toc-h2 toc-link" data-title="Create Lead">Create Lead</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -254,6 +257,9 @@
                   </li>
                   <li>
                     <a href="#leads-list-leads" class="toc-h2 toc-link" data-title="List Leads">List Leads</a>
+                  </li>
+                  <li>
+                    <a href="#leads-create-lead" class="toc-h2 toc-link" data-title="Create Lead">Create Lead</a>
                   </li>
                   <li>
                     <a href="#leads-get-lead" class="toc-h2 toc-link" data-title="Get Lead">Get Lead</a>
@@ -489,6 +495,58 @@ Be sure to replace myapikey with your API key.
 <aside class="warning">
 The <code>userId</code> parameter will be removed in the future. Because of the way the system is set up currently, this parameter must be used until changes can be made to the API. Users will be notified before these changes are made to the API.
 </aside>
+<h2 id='agents-create-lead'>Create Lead</h2><pre class="highlight shell tab-shell"><code>curl <span class="s1">'https://api.structurely.com/v1/agents/5d1faa9de1b5b447404cb545/leads'</span> <span class="se">\</span>
+  -H <span class="s1">'X-Api-Authorization: myapikey'</span> -H <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  -d <span class="s1">'{ "name": "John James", "email": "john.james@gmail.com", "phone": "+15551234567", "source": "EasyAgentPro", "type": "Buyer", "conversation": { "initialMessage": "Hello, I am interested in 123 Main St." }, "search": { "addresses": ["123 Main St."] }, "integrations": { "boomtown": { "primaryId": { "name": "contact_id", "value": "1" }, "secondaryIds": [] } }}'</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5d1fb274e1b5b454fb43b45c"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John James"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john.james@gmail.com"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+15551234567"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"readiness"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"firstContact"</span><span class="p">:</span><span class="w"> </span><span class="mf">1529970559.365</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"lastContact"</span><span class="p">:</span><span class="w"> </span><span class="mf">1530572384.613</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"muted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"conversation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"collection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lead.conversation"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.structurely.com/v1/leads/5d1fb274e1b5b454fb43b45c/conversation"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">108</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"integrations"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"boomtown"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"primaryId"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"contact_id"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"secondaryIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>!!! WIP !!!
+Full docs and changes to the /leads endpoints will be made in the near future.</p>
+
+<p>This lead endpoint creates a new lead for the agent with the given id. The lead will will be contacted as a lead that filled out a contact form. Hours of operation and other chatbot settings apply to the lead so contact the first message may not be sent immediately or even at all in the appropriate circumstances.</p>
+<h3 id='agents-create-lead-http-request'>HTTP Request</h3>
+<p><code>POST https://api.structurely.com/v1/agents/&lt;id&gt;/leads</code></p>
+<h3 id='agents-create-lead-url-parameters'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>The ID of the lead to retrieve</td>
+</tr>
+</tbody></table>
+<h3 id='agents-create-lead-body-parameters'>Body Parameters<a href="#leads-schemas-lead"><sup>[^]</sup></a></h3>
+<p>!!! TODO !!!</p>
 <h1 id='leads'>Leads</h1>
 <p>The Lead resource represents a single contact possibly with a conversation in homechat. This conversation includes messages by agents, the lead, and Holmes.</p>
 <h2 id='leads-schemas'>Schemas</h2><h3 id='leads-schemas-lead'>Lead</h3>
@@ -782,6 +840,46 @@ Be sure to replace myapikey with your API key.
 <aside class="warning">
 The <code>ownerId</code> parameter will be removed in the future. Because of the way the system is set up currently, this parameter must be used until changes can be made to the API. Users will be notified before these changes are made to the API.
 </aside>
+<h2 id='leads-create-lead'>Create Lead</h2><pre class="highlight shell tab-shell"><code>curl <span class="s1">'https://api.structurely.com/v1/leads'</span> <span class="se">\</span>
+  -H <span class="s1">'X-Api-Authorization: myapikey'</span> -H <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  -d <span class="s1">'{ "name": "John James", "email": "john.james@gmail.com", "phone": "+15551234567", "source": "EasyAgentPro", "type": "Buyer", "conversation": { "initialMessage": "Hello, I am interested in 123 Main St." }, "search": { "addresses": ["123 Main St."] }, "integrations": { "boomtown": { "primaryId": { "name": "contact_id", "value": "1" }, "secondaryIds": [] } }}'</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5d1fb274e1b5b454fb43b45c"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John James"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john.james@gmail.com"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+15551234567"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"readiness"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"firstContact"</span><span class="p">:</span><span class="w"> </span><span class="mf">1529970559.365</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"lastContact"</span><span class="p">:</span><span class="w"> </span><span class="mf">1530572384.613</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"muted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"conversation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"collection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lead.conversation"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.structurely.com/v1/leads/5d1fb274e1b5b454fb43b45c/conversation"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">108</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"integrations"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"boomtown"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"primaryId"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"contact_id"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"secondaryIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>!!! WIP !!!
+Full docs and changes to the /leads endpoints will be made in the near future.</p>
+
+<p>This lead endpoint creates a new lead for entity that owns the api key with the given id. The lead will will be contacted as a lead that filled out a contact form. Hours of operation and other chatbot settings apply to the lead so contact the first message may not be sent immediately or even at all in the appropriate circumstances.</p>
+<h3 id='leads-create-lead-http-request'>HTTP Request</h3>
+<p><code>POST https://api.structurely.com/v1/leads</code></p>
+<h3 id='leads-create-lead-body-parameters'>Body Parameters<a href="#leads-schemas-lead"><sup>[^]</sup></a></h3>
+<p>!!! TODO !!!</p>
 <h2 id='leads-get-lead'>Get Lead</h2><pre class="highlight shell tab-shell"><code>curl <span class="s1">'https://api.structurely.com/v1/leads/5ab1973c62c5be0034c2102c'</span> <span class="se">\</span>
   -H <span class="s1">'X-Api-Authorization: myapikey'</span>
 </code></pre>

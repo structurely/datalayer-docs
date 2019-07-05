@@ -69,3 +69,59 @@ Be sure to replace myapikey with your API key.
 <aside class="warning">
 The <code>userId</code> parameter will be removed in the future. Because of the way the system is set up currently, this parameter must be used until changes can be made to the API. Users will be notified before these changes are made to the API.
 </aside>
+
+## Create Lead
+
+```shell
+curl 'https://api.structurely.com/v1/agents/5d1faa9de1b5b447404cb545/leads' \
+  -H 'X-Api-Authorization: myapikey' -H 'Content-Type: application/json' \
+  -d '{ "name": "John James", "email": "john.james@gmail.com", "phone": "+15551234567", "source": "EasyAgentPro", "type": "Buyer", "conversation": { "initialMessage": "Hello, I am interested in 123 Main St." }, "search": { "addresses": ["123 Main St."] }, "integrations": { "boomtown": { "primaryId": { "name": "contact_id", "value": "1" }, "secondaryIds": [] } }}'
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "id": "5d1fb274e1b5b454fb43b45c",
+	"name": "John James",
+	"email": "john.james@gmail.com",
+	"phone": "+15551234567",
+  "readiness": "",
+  "firstContact": 1529970559.365,
+  "lastContact": 1530572384.613,
+  "muted": false,
+	"conversation": {
+    "collection": "lead.conversation",
+    "next": "https://api.structurely.com/v1/leads/5d1fb274e1b5b454fb43b45c/conversation",
+    "total": 108
+	},
+	"integrations": {
+		"boomtown": {
+			"primaryId": {
+				"name": "contact_id",
+				"value": "1"
+			},
+			"secondaryIds": []
+		}
+	}
+}
+```
+
+!!! WIP !!!
+Full docs and changes to the /leads endpoints will be made in the near future.
+
+This lead endpoint creates a new lead for the agent with the given id. The lead will will be contacted as a lead that filled out a contact form. Hours of operation and other chatbot settings apply to the lead so contact the first message may not be sent immediately or even at all in the appropriate circumstances.
+
+### HTTP Request
+
+`POST https://api.structurely.com/v1/agents/<id>/leads`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+id | The ID of the lead to retrieve
+
+### Body Parameters[<sup>[^]</sup>](#leads-schemas-lead)
+
+!!! TODO !!!
