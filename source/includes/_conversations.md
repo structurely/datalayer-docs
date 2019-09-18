@@ -26,6 +26,7 @@ Field | Type | Description | Readable? | Writable? | Required? | Default
 timeZone | `String` | The time zone the realtor and/or lead. (See [list](https://gist.github.com/heyalexej/8bf688fd67d7199be4a1682b3eec7568)) | Yes | No | Yes
 holmesName | `String` | The name of conversation AI to use in responses. | Yes | No | No | Aisa
 leadTypes | `List<String>` | The lead types that will be supported in this conversation. Possible values are `buyer`, `seller`, and `renter` | Yes | No | No | `['buyer', 'seller']`
+allowedDomains | `List<String>` | The domains that this conversation can use for conversation flows. Possible values are `realestate` and `mortgage`. When a lead sets or changes its lead type, the domain determines what scripts to use. | Yes | No | No | `['realestate']`
 
 ### ConversationSlot
 
@@ -74,7 +75,7 @@ Name | Type | Description
 name | `String` | The name of the lead.
 email | `String` | The email of the lead.
 phone | `String` | The phone number of the lead.
-address | `String` |  The address of the property a buyer lead is interested in.
+address | `String` | The address of the property a buyer lead is interested in.
 selling_address | `String` | The address of the property a seller lead is trying to sell.
 baths | `Float` | The specific number bathrooms the lead is looking for.
 baths_min | `Float` | The minimum number of bathrooms the lead is looking for.
@@ -87,7 +88,7 @@ price_min | `Float` | The minimum price the lead is looking for.
 price_max | `Float` | The maximum price the lead is looking for.
 location | `String` | The general location the lead is interested in buying.
 readiness | `String` | The readiness of the lead. Can be one of the following values: `active`, `just_looking`, `researching`, or an empty string.
-lead_priority | `String` | 
+lead_priority | `String` |
 lead_types | `List<String>` | A list of lead types this lead is considered as. Can be any combination of `buyer`, `seller`, or `renter`.
 lead_source | `String` | The source of the lead. Can be any string.
 timeframe | `String` | The general timeframe a lead is looking to move within.
@@ -105,6 +106,18 @@ agent_phone | `String` | The phone of the agent.
 agent_email | `String` | The email of the agent.
 agency_name | `String` | The name of the agency the agent works for or Holmes is messaging on the behalf of.
 office_location | `String` | The general location of the realtor office the system is representing.
+credit | `Enum{'very_poor', 'fair', 'good', 'very_good', 'excellent'}` |
+credit_score | `Integer[300,850]` |
+debt_to_income | `Float[0,50] |
+down_payment | `Float` | 
+down_payment_min | `Float` |
+down_payment_max | `Float` |
+employment_status | `Enum{'self_employed', 'employed', 'not_employed'}` |
+financial_default | `Enum{'bankruptcy', 'foreclosure', 'short_sale'}` |
+income | `Float` |
+lender_status | `Boolean` |
+loan_type | `Enum{'fha', 'conventional', 'va', 'reverse_mortgage'}` |
+property_use | `Enum{'vacation', 'investment', 'primary_residence'}` |
 
 ### Contexts
 
@@ -129,6 +142,11 @@ expect_price |
 expect_selling_address |
 expect_showing_appointment |
 expect_timeframe |
+expect_loan_type |
+expect_credit_score |
+expect_down_payment |
+expect_lender_status |
+expect_property_use |
 
 ### Stages
 

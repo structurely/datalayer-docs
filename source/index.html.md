@@ -42,3 +42,4 @@ Type | Description
 `String` | A plain string. When used as a url or query parameter, it must be url escaped.
 `DateTime` | A date time string that can be parsed into a time zone aware date time object.
 `List` | An array of values of either a primitive type or a schema. Usually has a type name defined (i.e. `List<Agent>`, `List<Integer>`)
+`Enum` | A single value that can be any primative type. Always has a set of possible values defined (i.e. `Enum{'hello', 'world'}`, `Enum{0, 1, 2}`)
