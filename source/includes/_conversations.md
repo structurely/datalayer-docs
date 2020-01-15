@@ -317,6 +317,115 @@ muted | `Boolean`
 Be sure to include the header `Content-Type: application/json` with your request.
 </aside>
 
+## Insert Slots
+
+```shell
+curl 'https://api.structurely.com/v1/conversations/5c09a4416241ea2c293275b8/slots' \
+  -X POST \
+  -H 'X-Api-Authorization: myapikey' \
+  -H 'Content-Type: application/json' \
+  -d '[{ "name": "agent_name", "value": "Andi Agent" }]'
+```
+
+> The above command returns an empty body with a 204 response
+
+This endpoint inserts the given slots to the conversation. Multi-valued slots will append the new values rather than replacing them. Returns a 204 response with an empty body.
+
+### HTTP Request
+
+`POST https://api.structurely.com/v1/conversations/<id>/slots`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+id | The ID of the conversation insert slots to
+
+### Body Parameters
+
+The body is a list of objects
+
+Type | Description
+--------- | -----------
+`List<ConversationSlot>` | The list of conversation slot objects
+
+<aside class="notice">
+Be sure to include the header `Content-Type: application/json` with your request.
+</aside>
+
+## Update Slots
+
+```shell
+curl 'https://api.structurely.com/v1/conversations/5c09a4416241ea2c293275b8/slots' \
+  -X PATCH \
+  -H 'X-Api-Authorization: myapikey' \
+  -H 'Content-Type: application/json' \
+  -d '[{ "name": "agent_name", "value": "Andi Agent" }]'
+```
+
+> The above command returns an empty body with a 204 response
+
+This endpoint updates the given slots to the conversation. Multi-valued slots will be overwritten with the new values replacing the old ones. Returns a 204 response with an empty body.
+
+### HTTP Request
+
+`PATCH https://api.structurely.com/v1/conversations/<id>/slots`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+id | The ID of the conversation insert slots to
+
+### Body Parameters
+
+The body is a list of objects
+
+Type | Description
+--------- | -----------
+`List<ConversationSlot>` | The list of conversation slot objects
+
+<aside class="notice">
+Be sure to include the header `Content-Type: application/json` with your request.
+</aside>
+
+## Upsert Slot
+
+```shell
+curl 'https://api.structurely.com/v1/conversations/5c09a4416241ea2c293275b8/slots/agent_name' \
+  -X PUT \
+  -H 'X-Api-Authorization: myapikey' \
+  -H 'Content-Type: application/json' \
+  -d '["Andi Agent"]'
+```
+
+> The above command returns an empty body with a 204 response
+
+This endpoint updates the exsting slot with that name to the list of values provided. All slots, both multi-valued and single-valued are provided in an array. Make the array a single element array if the slot is single-valued. If the slot does not already exist with that name, it is inserted with all the values provided.
+
+### HTTP Request
+
+`PUT https://api.structurely.com/v1/conversations/<id>/slots/<name>`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+id | The ID of the conversation insert slots to
+name | The name of the slot to update or insert
+
+### Body Parameters
+
+The body is a list of values
+
+Type | Description
+--------- | -----------
+`List<Any>` | The list of slot values
+
+<aside class="notice">
+Be sure to include the header `Content-Type: application/json` with your request.
+</aside>
+
 ## Create Message
 
 ```shell

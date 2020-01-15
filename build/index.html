@@ -291,6 +291,15 @@
                     <a href="#conversations-update-conversation" class="toc-h2 toc-link" data-title="Update Conversation">Update Conversation</a>
                   </li>
                   <li>
+                    <a href="#conversations-insert-slots" class="toc-h2 toc-link" data-title="Insert Slots">Insert Slots</a>
+                  </li>
+                  <li>
+                    <a href="#conversations-update-slots" class="toc-h2 toc-link" data-title="Update Slots">Update Slots</a>
+                  </li>
+                  <li>
+                    <a href="#conversations-upsert-slot" class="toc-h2 toc-link" data-title="Upsert Slot">Upsert Slot</a>
+                  </li>
+                  <li>
                     <a href="#conversations-create-message" class="toc-h2 toc-link" data-title="Create Message">Create Message</a>
                   </li>
                   <li>
@@ -378,6 +387,10 @@
 <tr>
 <td><code>List</code></td>
 <td>An array of values of either a primitive type or a schema. Usually has a type name defined (i.e. <code>List&lt;Agent&gt;</code>, <code>List&lt;Integer&gt;</code>)</td>
+</tr>
+<tr>
+<td><code>Enum</code></td>
+<td>A single value that can be any primative type. Always has a set of possible values defined (i.e. <code>Enum{&#39;hello&#39;, &#39;world&#39;}</code>, <code>Enum{0, 1, 2}</code>)</td>
 </tr>
 </tbody></table>
 <h1 id='agents'>Agents</h1>
@@ -1168,6 +1181,15 @@ This API resource is subject to change. Be prepared to make changes in the futur
 <td>No</td>
 <td><code>[&#39;buyer&#39;, &#39;seller&#39;]</code></td>
 </tr>
+<tr>
+<td>allowedDomains</td>
+<td><code>List&lt;String&gt;</code></td>
+<td>The domains that this conversation can use for conversation flows. Possible values are <code>realestate</code> and <code>mortgage</code>. When a lead sets or changes its lead type, the domain determines what scripts to use.</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+<td><code>[&#39;realestate&#39;]</code></td>
+</tr>
 </tbody></table>
 <h3 id='conversations-schemas-conversationslot'>ConversationSlot</h3>
 <table><thead>
@@ -1476,6 +1498,66 @@ This API resource is subject to change. Be prepared to make changes in the futur
 <td><code>String</code></td>
 <td>The general location of the realtor office the system is representing.</td>
 </tr>
+<tr>
+<td>credit</td>
+<td><code>Enum{&#39;very_poor&#39;, &#39;fair&#39;, &#39;good&#39;, &#39;very_good&#39;, &#39;excellent&#39;}</code></td>
+<td></td>
+</tr>
+<tr>
+<td>credit_score</td>
+<td><code>Integer[300,850]</code></td>
+<td></td>
+</tr>
+<tr>
+<td>debt_to_income</td>
+<td>`Float[0,50]</td>
+<td></td>
+</tr>
+<tr>
+<td>down_payment</td>
+<td><code>Float</code></td>
+<td></td>
+</tr>
+<tr>
+<td>down_payment_min</td>
+<td><code>Float</code></td>
+<td></td>
+</tr>
+<tr>
+<td>down_payment_max</td>
+<td><code>Float</code></td>
+<td></td>
+</tr>
+<tr>
+<td>employment_status</td>
+<td><code>Enum{&#39;self_employed&#39;, &#39;employed&#39;, &#39;not_employed&#39;}</code></td>
+<td></td>
+</tr>
+<tr>
+<td>financial_default</td>
+<td><code>Enum{&#39;bankruptcy&#39;, &#39;foreclosure&#39;, &#39;short_sale&#39;}</code></td>
+<td></td>
+</tr>
+<tr>
+<td>income</td>
+<td><code>Float</code></td>
+<td></td>
+</tr>
+<tr>
+<td>lender_status</td>
+<td><code>Boolean</code></td>
+<td></td>
+</tr>
+<tr>
+<td>loan_type</td>
+<td><code>Enum{&#39;fha&#39;, &#39;conventional&#39;, &#39;va&#39;, &#39;reverse_mortgage&#39;}</code></td>
+<td></td>
+</tr>
+<tr>
+<td>property_use</td>
+<td><code>Enum{&#39;vacation&#39;, &#39;investment&#39;, &#39;primary_residence&#39;}</code></td>
+<td></td>
+</tr>
 </tbody></table>
 <h3 id='conversations-slots-contexts-and-stages-contexts'>Contexts</h3>
 <table><thead>
@@ -1539,6 +1621,21 @@ This API resource is subject to change. Be prepared to make changes in the futur
 </tr>
 <tr>
 <td>expect_timeframe</td>
+</tr>
+<tr>
+<td>expect_loan_type</td>
+</tr>
+<tr>
+<td>expect_credit_score</td>
+</tr>
+<tr>
+<td>expect_down_payment</td>
+</tr>
+<tr>
+<td>expect_lender_status</td>
+</tr>
+<tr>
+<td>expect_property_use</td>
 </tr>
 </tbody></table>
 <h3 id='conversations-slots-contexts-and-stages-stages'>Stages</h3>
@@ -1731,6 +1828,139 @@ Be sure to include the header `Content-Type: application/json` with your request
 <tr>
 <td>muted</td>
 <td><code>Boolean</code></td>
+</tr>
+</tbody></table>
+
+<aside class="notice">
+Be sure to include the header `Content-Type: application/json` with your request.
+</aside>
+<h2 id='conversations-insert-slots'>Insert Slots</h2><pre class="highlight shell tab-shell"><code>curl <span class="s1">'https://api.structurely.com/v1/conversations/5c09a4416241ea2c293275b8/slots'</span> <span class="se">\</span>
+  -X POST <span class="se">\</span>
+  -H <span class="s1">'X-Api-Authorization: myapikey'</span> <span class="se">\</span>
+  -H <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  -d <span class="s1">'[{ "name": "agent_name", "value": "Andi Agent" }]'</span>
+</code></pre>
+<blockquote>
+<p>The above command returns an empty body with a 204 response</p>
+</blockquote>
+
+<p>This endpoint inserts the given slots to the conversation. Multi-valued slots will append the new values rather than replacing them. Returns a 204 response with an empty body.</p>
+<h3 id='conversations-insert-slots-http-request'>HTTP Request</h3>
+<p><code>POST https://api.structurely.com/v1/conversations/&lt;id&gt;/slots</code></p>
+<h3 id='conversations-insert-slots-url-parameters'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>The ID of the conversation insert slots to</td>
+</tr>
+</tbody></table>
+<h3 id='conversations-insert-slots-body-parameters'>Body Parameters</h3>
+<p>The body is a list of objects</p>
+
+<table><thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>List&lt;ConversationSlot&gt;</code></td>
+<td>The list of conversation slot objects</td>
+</tr>
+</tbody></table>
+
+<aside class="notice">
+Be sure to include the header `Content-Type: application/json` with your request.
+</aside>
+<h2 id='conversations-update-slots'>Update Slots</h2><pre class="highlight shell tab-shell"><code>curl <span class="s1">'https://api.structurely.com/v1/conversations/5c09a4416241ea2c293275b8/slots'</span> <span class="se">\</span>
+  -X PATCH <span class="se">\</span>
+  -H <span class="s1">'X-Api-Authorization: myapikey'</span> <span class="se">\</span>
+  -H <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  -d <span class="s1">'[{ "name": "agent_name", "value": "Andi Agent" }]'</span>
+</code></pre>
+<blockquote>
+<p>The above command returns an empty body with a 204 response</p>
+</blockquote>
+
+<p>This endpoint updates the given slots to the conversation. Multi-valued slots will be overwritten with the new values replacing the old ones. Returns a 204 response with an empty body.</p>
+<h3 id='conversations-update-slots-http-request'>HTTP Request</h3>
+<p><code>PATCH https://api.structurely.com/v1/conversations/&lt;id&gt;/slots</code></p>
+<h3 id='conversations-update-slots-url-parameters'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>The ID of the conversation insert slots to</td>
+</tr>
+</tbody></table>
+<h3 id='conversations-update-slots-body-parameters'>Body Parameters</h3>
+<p>The body is a list of objects</p>
+
+<table><thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>List&lt;ConversationSlot&gt;</code></td>
+<td>The list of conversation slot objects</td>
+</tr>
+</tbody></table>
+
+<aside class="notice">
+Be sure to include the header `Content-Type: application/json` with your request.
+</aside>
+<h2 id='conversations-upsert-slot'>Upsert Slot</h2><pre class="highlight shell tab-shell"><code>curl <span class="s1">'https://api.structurely.com/v1/conversations/5c09a4416241ea2c293275b8/slots/agent_name'</span> <span class="se">\</span>
+  -X PUT <span class="se">\</span>
+  -H <span class="s1">'X-Api-Authorization: myapikey'</span> <span class="se">\</span>
+  -H <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+  -d <span class="s1">'["Andi Agent"]'</span>
+</code></pre>
+<blockquote>
+<p>The above command returns an empty body with a 204 response</p>
+</blockquote>
+
+<p>This endpoint updates the exsting slot with that name to the list of values provided. All slots, both multi-valued and single-valued are provided in an array. Make the array a single element array if the slot is single-valued. If the slot does not already exist with that name, it is inserted with all the values provided.</p>
+<h3 id='conversations-upsert-slot-http-request'>HTTP Request</h3>
+<p><code>PUT https://api.structurely.com/v1/conversations/&lt;id&gt;/slots/&lt;name&gt;</code></p>
+<h3 id='conversations-upsert-slot-url-parameters'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>The ID of the conversation insert slots to</td>
+</tr>
+<tr>
+<td>name</td>
+<td>The name of the slot to update or insert</td>
+</tr>
+</tbody></table>
+<h3 id='conversations-upsert-slot-body-parameters'>Body Parameters</h3>
+<p>The body is a list of values</p>
+
+<table><thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>List&lt;Any&gt;</code></td>
+<td>The list of slot values</td>
 </tr>
 </tbody></table>
 
