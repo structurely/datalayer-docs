@@ -26,7 +26,7 @@ Field | Type | Description | Readable? | Writable? | Required? | Default
 timeZone | `String` | The time zone the realtor and/or lead. (See [list](https://gist.github.com/heyalexej/8bf688fd67d7199be4a1682b3eec7568)) | Yes | No | Yes
 holmesName | `String` | The name of conversation AI to use in responses. | Yes | No | No | Aisa
 leadTypes | `List<String>` | The lead types that will be supported in this conversation. Possible values are `buyer`, `seller`, and `renter` | Yes | No | No | `['buyer', 'seller']`
-allowedDomains | `List<String>` | The domains that this conversation can use for conversation flows. Possible values are `realestate` and `mortgage`. When a lead sets or changes its lead type, the domain determines what scripts to use. | Yes | No | No | `['realestate']`
+allowedDomains | `List<String>` | The domains that this conversation can use for conversation flows. Possible values are `real_estate` and `mortgage`. When a lead sets or changes its lead type, the domain determines what scripts to use. | Yes | No | No | `['real_estate']`
 
 ### ConversationSlot
 
@@ -89,7 +89,7 @@ price_max | `Float` | The maximum price the lead is looking for.
 location | `String` | The general location the lead is interested in buying.
 readiness | `String` | The readiness of the lead. Can be one of the following values: `active`, `just_looking`, `researching`, or an empty string.
 lead_priority | `String` |
-lead_types | `List<String>` | A list of lead types this lead is considered as. Can be any combination of `buyer`, `seller`, or `renter`.
+lead_type | `List<String>` | A list of lead types this lead is considered as. Can be any combination of `buyer`, `seller`, `renter`, or `new_home_loan`.
 lead_source | `String` | The source of the lead. Can be any string.
 timeframe | `String` | The general timeframe a lead is looking to move within.
 contingency | `Boolean` | True if the lead needs to sell their current home before buying.
@@ -157,6 +157,10 @@ responded | The lead has responded in this conversation.
 not_interested | The lead has indicated no interest or opted out of communication in this conversation.
 interested | The lead has responded and has not been classified as not interested.
 needs_follow_up | The lead has reached a conclusion in the conversation that requires further follow-up.
+
+### Domains
+
+To use domains other than the default real_estate domain, the domains have to be enabled in the settings and an appropriate lead type has to be selected in the lead_type slot. An example of using the mortgage scripts for a new home loan buyer would be to set the `allowedDomains` settings value to `["real_estate", "mortgage"]` and setting the lead_type slot to the values `"buyer"` and `"new_home_loan"`.
 
 ## Create Conversation
 

@@ -1184,11 +1184,11 @@ This API resource is subject to change. Be prepared to make changes in the futur
 <tr>
 <td>allowedDomains</td>
 <td><code>List&lt;String&gt;</code></td>
-<td>The domains that this conversation can use for conversation flows. Possible values are <code>realestate</code> and <code>mortgage</code>. When a lead sets or changes its lead type, the domain determines what scripts to use.</td>
+<td>The domains that this conversation can use for conversation flows. Possible values are <code>real_estate</code> and <code>mortgage</code>. When a lead sets or changes its lead type, the domain determines what scripts to use.</td>
 <td>Yes</td>
 <td>No</td>
 <td>No</td>
-<td><code>[&#39;realestate&#39;]</code></td>
+<td><code>[&#39;real_estate&#39;]</code></td>
 </tr>
 </tbody></table>
 <h3 id='conversations-schemas-conversationslot'>ConversationSlot</h3>
@@ -1414,9 +1414,9 @@ This API resource is subject to change. Be prepared to make changes in the futur
 <td></td>
 </tr>
 <tr>
-<td>lead_types</td>
+<td>lead_type</td>
 <td><code>List&lt;String&gt;</code></td>
-<td>A list of lead types this lead is considered as. Can be any combination of <code>buyer</code>, <code>seller</code>, or <code>renter</code>.</td>
+<td>A list of lead types this lead is considered as. Can be any combination of <code>buyer</code>, <code>seller</code>, <code>renter</code>, or <code>new_home_loan</code>.</td>
 </tr>
 <tr>
 <td>lead_source</td>
@@ -1666,6 +1666,8 @@ This API resource is subject to change. Be prepared to make changes in the futur
 <td>The lead has reached a conclusion in the conversation that requires further follow-up.</td>
 </tr>
 </tbody></table>
+<h3 id='conversations-slots-contexts-and-stages-domains'>Domains</h3>
+<p>To use domains other than the default real_estate domain, the domains have to be enabled in the settings and an appropriate lead type has to be selected in the lead_type slot. An example of using the mortgage scripts for a new home loan buyer would be to set the <code>allowedDomains</code> settings value to <code>[&quot;real_estate&quot;, &quot;mortgage&quot;]</code> and setting the lead_type slot to the values <code>&quot;buyer&quot;</code> and <code>&quot;new_home_loan&quot;</code>.</p>
 <h2 id='conversations-create-conversation'>Create Conversation</h2><pre class="highlight shell tab-shell"><code>curl <span class="s1">'https://api.structurely.com/v1/conversations'</span> <span class="se">\</span>
   -X POST <span class="se">\</span>
   -H <span class="s1">'X-Api-Authorization: myapikey'</span> <span class="se">\</span>
