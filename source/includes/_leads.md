@@ -16,6 +16,7 @@ readiness | `String` | The readiness of the lead. Can be one of the following va
 firstContact | `Float` | The number of seconds after the unix epoch since first contact was made with this lead. | Yes | No
 lastContact | `Float` | The number of seconds after the unix epoch since the latest contact was made with this lead. | Yes | No
 muted | `Boolean` | Indicates whether Holmes is muted in the conversation or not. | Yes | Yes
+stages | `List[String]` | The list of stages this lead is in. Can be any combination of the following values: `responded`, `not_responded`, `interested`, `not_interested`, `needs_follow_up`, `suggest_fallback`. | Yes | No
 conversation | `LeadConversation` | The conversation metadata object for this lead. | Yes | No
 
 ### LeadConversation
