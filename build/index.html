@@ -1354,6 +1354,11 @@ This API resource is subject to change. Be prepared to make changes in the futur
 </tr>
 </thead><tbody>
 <tr>
+<td><strong>Lead Contact Information</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
 <td>name</td>
 <td><code>String</code></td>
 <td>The name of the lead.</td>
@@ -1377,6 +1382,61 @@ This API resource is subject to change. Be prepared to make changes in the futur
 <td>selling_address</td>
 <td><code>String</code></td>
 <td>The address of the property a seller lead is trying to sell.</td>
+</tr>
+<tr>
+<td>lead_type</td>
+<td><code>List&lt;String&gt;</code></td>
+<td>A list of lead types this lead is considered as. Not limited to but includes any of <code>buyer</code>, <code>buyer_specific</code>, <code>renter</code>, <code>renter_specific</code>, <code>seller</code>, <code>just_looking</code>, <code>pending_sale_interest</code>, <code>investor</code>, <code>rent_to_own</code>, <code>rent_to_own_specific</code>, <code>new_home_loan</code>, <code>new_home_loan_specific</code>, <code>home_refinance</code> or a combination thereof.</td>
+</tr>
+<tr>
+<td><strong>Agent Contact Information</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>agent_name</td>
+<td><code>String</code></td>
+<td>The name of the agent Holmes is messaging on the behalf of.</td>
+</tr>
+<tr>
+<td>agent_email</td>
+<td><code>String</code></td>
+<td>The email of the agent.</td>
+</tr>
+<tr>
+<td>agent_phone</td>
+<td><code>String</code></td>
+<td>The phone of the agent.</td>
+</tr>
+<tr>
+<td>agency_name</td>
+<td><code>String</code></td>
+<td>The name of the agency the agent works for or Holmes is messaging on the behalf of.</td>
+</tr>
+<tr>
+<td>office_location</td>
+<td><code>String</code></td>
+<td>The general location of the realtor office the system is representing.</td>
+</tr>
+<tr>
+<td><strong>General Lead Information</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>agent_status</td>
+<td><code>Boolean</code></td>
+<td>True if the lead is already working with an agent.</td>
+</tr>
+<tr>
+<td>alternate_plan</td>
+<td><code>String</code></td>
+<td></td>
+</tr>
+<tr>
+<td>appointment</td>
+<td><code>String</code></td>
+<td>The time the lead is available for an appointment.</td>
 </tr>
 <tr>
 <td>baths</td>
@@ -1409,74 +1469,14 @@ This API resource is subject to change. Be prepared to make changes in the futur
 <td>The maximum number of bedrooms the lead is looking for.</td>
 </tr>
 <tr>
-<td>price</td>
-<td><code>Float</code></td>
-<td>The specific price the lead is looking for.</td>
-</tr>
-<tr>
-<td>price_min</td>
-<td><code>Float</code></td>
-<td>The minimum price the lead is looking for.</td>
-</tr>
-<tr>
-<td>price_max</td>
-<td><code>Float</code></td>
-<td>The maximum price the lead is looking for.</td>
-</tr>
-<tr>
-<td>location</td>
-<td><code>String</code></td>
-<td>The general location the lead is interested in buying.</td>
-</tr>
-<tr>
-<td>readiness</td>
-<td><code>String</code></td>
-<td>The readiness of the lead. Can be one of the following values: <code>active</code>, <code>just_looking</code>, <code>researching</code>, or an empty string.</td>
-</tr>
-<tr>
-<td>lead_priority</td>
-<td><code>String</code></td>
+<td>benefit</td>
+<td><code>Boolean</code></td>
 <td></td>
 </tr>
 <tr>
-<td>lead_type</td>
-<td><code>List&lt;String&gt;</code></td>
-<td>A list of lead types this lead is considered as. Can be any combination of <code>buyer</code>, <code>seller</code>, <code>renter</code>, or <code>new_home_loan</code>.</td>
-</tr>
-<tr>
-<td>lead_source</td>
-<td><code>String</code></td>
-<td>The source of the lead. Can be any string.</td>
-</tr>
-<tr>
-<td>timeframe</td>
-<td><code>String</code></td>
-<td>The general timeframe a lead is looking to move within.</td>
-</tr>
-<tr>
-<td>contingency</td>
-<td><code>Boolean</code></td>
-<td>True if the lead needs to sell their current home before buying.</td>
-</tr>
-<tr>
-<td>agent_status</td>
-<td><code>Boolean</code></td>
-<td>True if the lead is already working with an agent.</td>
-</tr>
-<tr>
-<td>financing_status</td>
-<td><code>Boolean</code></td>
-<td>True if the lead is prequalified or paying with cash.</td>
-</tr>
-<tr>
-<td>is_investor</td>
-<td><code>Boolean</code></td>
-<td>True if the lead is an investor buying property.</td>
-</tr>
-<tr>
-<td>is_agent</td>
-<td><code>Boolean</code></td>
-<td>True if the lead is an agent.</td>
+<td>business_development</td>
+<td><code>Enum</code></td>
+<td>Business development. Possible values:<br /><code>{&#39;outbound&#39;, &#39;inbound&#39;, &#39;paid&#39;, &#39;referral&#39;, &#39;networking&#39;}</code></td>
 </tr>
 <tr>
 <td>call_availability</td>
@@ -1484,49 +1484,44 @@ This API resource is subject to change. Be prepared to make changes in the futur
 <td>The time when the lead is available for a call with the agent.</td>
 </tr>
 <tr>
-<td>appointment</td>
+<td>company_name</td>
 <td><code>String</code></td>
-<td>The time the lead is available for an appointment.</td>
+<td></td>
 </tr>
 <tr>
-<td>listing_appointment</td>
-<td><code>String</code></td>
-<td>The time the lead is available for an appointment about their listing.</td>
+<td>competitor_status</td>
+<td><code>Boolean</code></td>
+<td></td>
 </tr>
 <tr>
-<td>showing_appointment</td>
-<td><code>String</code></td>
-<td>The time the lead is available for a showing appointment.</td>
+<td>confidence</td>
+<td><code>Enum</code></td>
+<td>Confidence. Possible values:<br /><code>{&#39;very_confident&#39;, &#39;somewhat_confident&#39;, &#39;not_confident&#39;}</code></td>
 </tr>
 <tr>
-<td>agent_name</td>
-<td><code>String</code></td>
-<td>The name of the agent Holmes is messaging on the behalf of.</td>
+<td>contact_confirmation</td>
+<td><code>Boolean</code></td>
+<td></td>
 </tr>
 <tr>
-<td>agent_phone</td>
+<td>contact_time</td>
 <td><code>String</code></td>
-<td>The phone of the agent.</td>
+<td></td>
 </tr>
 <tr>
-<td>agent_email</td>
-<td><code>String</code></td>
-<td>The email of the agent.</td>
+<td>content_offer</td>
+<td><code>Boolean</code></td>
+<td></td>
 </tr>
 <tr>
-<td>agency_name</td>
-<td><code>String</code></td>
-<td>The name of the agency the agent works for or Holmes is messaging on the behalf of.</td>
-</tr>
-<tr>
-<td>office_location</td>
-<td><code>String</code></td>
-<td>The general location of the realtor office the system is representing.</td>
+<td>contingency</td>
+<td><code>Boolean</code></td>
+<td>True if the lead needs to sell their current home before buying.</td>
 </tr>
 <tr>
 <td>credit</td>
-<td><code>Enum{&#39;very_poor&#39;, &#39;fair&#39;, &#39;good&#39;, &#39;very_good&#39;, &#39;excellent&#39;}</code></td>
-<td></td>
+<td><code>Enum</code></td>
+<td>Credit rating. Possible values:<br /><code>{&#39;very_poor&#39;, &#39;fair&#39;, &#39;good&#39;, &#39;very_good&#39;, &#39;excellent&#39;}</code></td>
 </tr>
 <tr>
 <td>credit_score</td>
@@ -1535,7 +1530,27 @@ This API resource is subject to change. Be prepared to make changes in the futur
 </tr>
 <tr>
 <td>debt_to_income</td>
-<td>`Float[0,50]</td>
+<td><code>Float[0,50]</code></td>
+<td></td>
+</tr>
+<tr>
+<td>decision_maker</td>
+<td><code>Boolean</code></td>
+<td></td>
+</tr>
+<tr>
+<td>decision_process</td>
+<td><code>String</code></td>
+<td></td>
+</tr>
+<tr>
+<td>delivery_followup</td>
+<td><code>Boolean</code></td>
+<td></td>
+</tr>
+<tr>
+<td>description</td>
+<td><code>String</code></td>
 <td></td>
 </tr>
 <tr>
@@ -1555,12 +1570,72 @@ This API resource is subject to change. Be prepared to make changes in the futur
 </tr>
 <tr>
 <td>employment_status</td>
-<td><code>Enum{&#39;self_employed&#39;, &#39;employed&#39;, &#39;not_employed&#39;}</code></td>
+<td><code>Enum</code></td>
+<td>Employment status. Possible values:<br /><code>{&#39;self_employed&#39;, &#39;employed&#39;, &#39;not_employed&#39;}</code></td>
+</tr>
+<tr>
+<td>equity_status</td>
+<td><code>Float</code></td>
+<td></td>
+</tr>
+<tr>
+<td>equity_status_min</td>
+<td><code>Float</code></td>
+<td></td>
+</tr>
+<tr>
+<td>equity_status_max</td>
+<td><code>Float</code></td>
+<td></td>
+</tr>
+<tr>
+<td>favorite_city</td>
+<td><code>String</code></td>
 <td></td>
 </tr>
 <tr>
 <td>financial_default</td>
-<td><code>Enum{&#39;bankruptcy&#39;, &#39;foreclosure&#39;, &#39;short_sale&#39;}</code></td>
+<td><code>Enum</code></td>
+<td>Financial default. Possible values:<br /><code>{&#39;bankruptcy&#39;, &#39;foreclosure&#39;, &#39;short_sale&#39;, &#39;missed_payments&#39;}</code></td>
+</tr>
+<tr>
+<td>financing_status</td>
+<td><code>Boolean</code></td>
+<td>True if the lead is prequalified or paying with cash.</td>
+</tr>
+<tr>
+<td>first_time_buyer</td>
+<td><code>Boolean</code></td>
+<td></td>
+</tr>
+<tr>
+<td>fsbo_reason</td>
+<td><code>String</code></td>
+<td></td>
+</tr>
+<tr>
+<td>garage_stalls</td>
+<td><code>Integer[0,8]</code></td>
+<td>Number of garage stalls.</td>
+</tr>
+<tr>
+<td>garage_stalls_min</td>
+<td><code>Integer[0,8]</code></td>
+<td>Minimum number of garage stalls.</td>
+</tr>
+<tr>
+<td>garage_stalls_max</td>
+<td><code>Integer[0,8]</code></td>
+<td>Maximum number of garage stalls.</td>
+</tr>
+<tr>
+<td>home_style</td>
+<td><code>Enum</code></td>
+<td>The home style(s) the lead is interested in. Possible values:<br /><code>{&#39;art_deco&#39;, &#39;barndominium&#39;, &#39;bungalow&#39;, &#39;cape_cod&#39;, &#39;colonial&#39;, &#39;condominium&#39;, &#39;contemporary&#39;, &#39;craftsman&#39;, &#39;creole&#39;, &#39;dutch_colonial&#39;, &#39;farmhouse&#39;, &#39;federal&#39;, &#39;french_provincial&#39;, &#39;georgian&#39;, &#39;gothic_revival&#39;, &#39;greek_revival&#39;, &#39;international&#39;, &#39;italianate&#39;, &#39;log_cabin&#39;, &#39;modern&#39;, &#39;monterey&#39;, &#39;national&#39;, &#39;neoclassical&#39;, &#39;prairie&#39;, &#39;pueblo&#39;, &#39;queen_anne&#39;, &#39;ranch&#39;, &#39;regency&#39;, &#39;saltbox&#39;, &#39;second_empire&#39;, &#39;shed&#39;, &#39;shingle&#39;, &#39;shotgun&#39;, &#39;spanish_eclectic&#39;, &#39;split_level&#39;, &#39;stick&#39;, &#39;tudor&#39;, &#39;victorian&#39;, &#39;other&#39;}</code></td>
+</tr>
+<tr>
+<td>image</td>
+<td><code>String</code></td>
 <td></td>
 </tr>
 <tr>
@@ -1569,18 +1644,348 @@ This API resource is subject to change. Be prepared to make changes in the futur
 <td></td>
 </tr>
 <tr>
+<td>interest</td>
+<td><code>Enum</code></td>
+<td>Interest. Possible values:<br /><code>{&#39;interested&#39;, &#39;not_interested&#39;, &#39;somewhat_interested&#39;, &#39;postponed_interested&#39;}</code></td>
+</tr>
+<tr>
+<td>is_agent</td>
+<td><code>Boolean</code></td>
+<td>True if the lead is an agent.</td>
+</tr>
+<tr>
+<td>is_investor</td>
+<td><code>Boolean</code></td>
+<td>True if the lead is an investor buying property.</td>
+</tr>
+<tr>
+<td>is_local</td>
+<td><code>Boolean</code></td>
+<td></td>
+</tr>
+<tr>
+<td>language</td>
+<td><code>Enum</code></td>
+<td>The language detected in this conversation. Current conversation support is for English and Spanish languages only. Possible values:<br /><code>{&#39;spanish&#39;, &#39;mandarin&#39;, &#39;french&#39;, &#39;hindi&#39;, &#39;arabic&#39;, &#39;portuguese&#39;, &#39;bengali&#39;, &#39;russian&#39;, &#39;japanese&#39;, &#39;punjabi&#39;, &#39;english&#39;}</code></td>
+</tr>
+<tr>
+<td>lead_priority</td>
+<td><code>Enum</code></td>
+<td>Lead priority. Possible values:<br /><code>{&#39;now&#39;, &#39;soon&#39;, &#39;later&#39;, &#39;distant&#39;, &#39;never&#39;}</code></td>
+</tr>
+<tr>
+<td>lead_source</td>
+<td><code>String</code></td>
+<td>The source of the lead. Can be any string.</td>
+</tr>
+<tr>
 <td>lender_status</td>
 <td><code>Boolean</code></td>
 <td></td>
 </tr>
 <tr>
-<td>loan_type</td>
-<td><code>Enum{&#39;fha&#39;, &#39;conventional&#39;, &#39;va&#39;, &#39;reverse_mortgage&#39;}</code></td>
+<td>listing_appointment</td>
+<td><code>String</code></td>
+<td>The time the lead is available for an appointment about their listing.</td>
+</tr>
+<tr>
+<td>listing_url</td>
+<td><code>String</code></td>
 <td></td>
 </tr>
 <tr>
+<td>living_space</td>
+<td><code>Integer</code></td>
+<td>The living space the lead is searching for.</td>
+</tr>
+<tr>
+<td>living_space_min</td>
+<td><code>Integer</code></td>
+<td>The minimum living space the lead is searching for.</td>
+</tr>
+<tr>
+<td>living_space_max</td>
+<td><code>Integer</code></td>
+<td>The maximum living space the lead is searching for.</td>
+</tr>
+<tr>
+<td>loan_balance</td>
+<td><code>Integer</code></td>
+<td>The loan balance.</td>
+</tr>
+<tr>
+<td>loan_balance_min</td>
+<td><code>Integer</code></td>
+<td>The minimum loan balance.</td>
+</tr>
+<tr>
+<td>loan_balance_max</td>
+<td><code>Integer</code></td>
+<td>The maximum loan balance.</td>
+</tr>
+<tr>
+<td>loan_type</td>
+<td><code>Enum</code></td>
+<td>Loan type. Possible values:<br /><code>{&#39;fha&#39;, &#39;conventional&#39;, &#39;va&#39;, &#39;reverse_mortgage&#39;, &#39;jumbo&#39;, &#39;usda&#39;}</code></td>
+</tr>
+<tr>
+<td>location</td>
+<td><code>String</code></td>
+<td>The general location the lead is interested in buying.</td>
+</tr>
+<tr>
+<td>lot_size</td>
+<td><code>Integer</code></td>
+<td>The lot size the lead is searching for.</td>
+</tr>
+<tr>
+<td>lot_size_min</td>
+<td><code>Integer</code></td>
+<td>The minimum lot size the lead is searching for.</td>
+</tr>
+<tr>
+<td>lot_size_max</td>
+<td><code>Integer</code></td>
+<td>The maximum lot size the lead is searching for.</td>
+</tr>
+<tr>
+<td>meeting_location</td>
+<td><code>String</code></td>
+<td>Special values:<br /><code>webcam</code>, <code>zoom</code>, <code>google_hangouts</code>, <code>uberconference</code>, <code>open</code></td>
+</tr>
+<tr>
+<td>military_active_duty</td>
+<td><code>Boolean</code></td>
+<td></td>
+</tr>
+<tr>
+<td>military_branch</td>
+<td><code>Enum</code></td>
+<td>Possible values:<br /><code>{&#39;army&#39;, &#39;air_force&#39;, &#39;coast_guard&#39;, &#39;marines&#39;, &#39;navy&#39;, &#39;national_guard&#39;, &#39;space_force&#39;}</code></td>
+</tr>
+<tr>
+<td>military_discharge_type</td>
+<td><code>Enum</code></td>
+<td>Possible values:<br /><code>{&#39;honorable_discharge&#39;, &#39;general_discharge&#39;, &#39;other_than_honorable_discharge&#39;, &#39;bad_conduct_discharge&#39;, &#39;dishonorable_discharge&#39;, &#39;entry_level_separation&#39;, &#39;medical_separation&#39;, &#39;separation_for_convenience_of_the_government&#39;}</code></td>
+</tr>
+<tr>
+<td>military_reserves_service</td>
+<td><code>Boolean</code></td>
+<td></td>
+</tr>
+<tr>
+<td>military_service_term</td>
+<td><code>Integer</code></td>
+<td></td>
+</tr>
+<tr>
+<td>mortgage_escrow</td>
+<td><code>Boolean</code></td>
+<td></td>
+</tr>
+<tr>
+<td>mortgage_intent</td>
+<td><code>Enum</code></td>
+<td>Possible values:<br /><code>{&#39;preapproval&#39;, &#39;rate_quote&#39;}</code></td>
+</tr>
+<tr>
+<td>motivation</td>
+<td><code>Enum</code></td>
+<td>Possible values:<br /><code>{&#39;new_job&#39;, &#39;lost_job&#39;, &#39;downsizing&#39;, &#39;upsizing&#39;, &#39;death&#39;, &#39;debt&#39;, &#39;divorce&#39;, &#39;lease_expiry&#39;, &#39;lifestyle&#39;, &#39;investment&#39;, &#39;environmental&#39;, &#39;save_money&#39;, &#39;closer_to_family&#39;, &#39;tired_of_renting&#39;, &#39;new_children&#39;, &#39;retiring&#39;, &#39;space_for_animals&#39;, &#39;neighbor_sold_property&#39;, &#39;sold_property&#39;, &#39;ready_to_move&#39;, &#39;closer_to_school&#39;, &#39;closer_to_friends&#39;, &#39;good_schools&#39;, &#39;vacation_interest&#39;, &#39;homeless&#39;, &#39;privacy&#39;, &#39;weather&#39;}</code></td>
+</tr>
+<tr>
+<td>motivation_plans</td>
+<td><code>String</code></td>
+<td></td>
+</tr>
+<tr>
+<td>outcome</td>
+<td><code>String</code></td>
+<td></td>
+</tr>
+<tr>
+<td>ownership</td>
+<td><code>Enum</code></td>
+<td>Possible values:<br /><code>{&#39;sole_owner&#39;, &#39;co_owner&#39;, &#39;third_party_owner&#39;, &#39;no_ownership&#39;}</code></td>
+</tr>
+<tr>
+<td>ownership_timeline</td>
+<td><code>String</code></td>
+<td>Special value: <code>open</code></td>
+</tr>
+<tr>
+<td>price</td>
+<td><code>Float</code></td>
+<td>The specific price the lead is looking for.</td>
+</tr>
+<tr>
+<td>price_min</td>
+<td><code>Float</code></td>
+<td>The minimum price the lead is looking for.</td>
+</tr>
+<tr>
+<td>price_max</td>
+<td><code>Float</code></td>
+<td>The maximum price the lead is looking for.</td>
+</tr>
+<tr>
+<td>prior_loan_experience</td>
+<td><code>Boolean</code></td>
+<td></td>
+</tr>
+<tr>
+<td>problem</td>
+<td><code>String</code></td>
+<td></td>
+</tr>
+<tr>
+<td>promotional_offer</td>
+<td><code>Enum</code></td>
+<td>Interest. Possible values:<br /><code>{&#39;interested&#39;, &#39;not_interested&#39;, &#39;somewhat_interested&#39;, &#39;postponed_interested&#39;}</code></td>
+</tr>
+<tr>
+<td>property_feature</td>
+<td><code>Enum</code></td>
+<td>Possible values:<br /><code>{&#39;access_to_water&#39;, &#39;big_yard&#39;, &#39;detached_garage&#39;, &#39;exposed_beams&#39;, &#39;exposed_brick&#39;, &#39;finished_basement&#39;, &#39;handicap_accessible&#39;, &#39;home_office&#39;, &#39;pool&#39;, &#39;space_to_entertain&#39;, &#39;updated_baths&#39;, &#39;updated_kitchen&#39;, &#39;vaulted_ceilings&#39;, &#39;walkable_neighborhood&#39;, &#39;fenced_yard&#39;, &#39;other&#39;}</code></td>
+</tr>
+<tr>
+<td>property_info_request</td>
+<td><code>Enum</code></td>
+<td>Possible values:<br /><code>{&#39;baths&#39;, &#39;beds&#39;, &#39;boat_slip&#39;, &#39;community_info&#39;, &#39;covenants&#39;, &#39;days_on_market&#39;, &#39;deed_restrictions&#39;, &#39;disclosures&#39;, &#39;expected_dom&#39;, &#39;floorplan&#39;, &#39;garage_spaces&#39;, &#39;hoa&#39;, &#39;living_space&#39;, &#39;lot_rent&#39;, &#39;lot_size&#39;, &#39;owners&#39;, &#39;pet_friendly&#39;, &#39;price&#39;, &#39;property_location&#39;, &#39;property_type&#39;, &#39;public_remarks&#39;, &#39;rental_history&#39;, &#39;schools&#39;, &#39;senior_community&#39;, &#39;status&#39;, &#39;stories&#39;, &#39;taxes&#39;, &#39;transactions&#39;, &#39;utilities&#39;, &#39;year_built&#39;, &#39;zoning&#39;}</code></td>
+</tr>
+<tr>
+<td>property_location</td>
+<td><code>String</code></td>
+<td></td>
+</tr>
+<tr>
+<td>property_preferences</td>
+<td><code>String</code></td>
+<td></td>
+</tr>
+<tr>
+<td>property_records</td>
+<td><code>Enum</code></td>
+<td>Possible values:<br /><code>{&#39;second_mortgage&#39;, &#39;lien&#39;}</code></td>
+</tr>
+<tr>
+<td>property_status</td>
+<td><code>Enum</code></td>
+<td>Possible values:<br /><code>{&#39;active&#39;, &#39;sold&#39;, &#39;pending&#39;}</code></td>
+</tr>
+<tr>
+<td>property_type</td>
+<td><code>Enum</code></td>
+<td>Possible values:<br /><code>{&#39;vacant_land&#39;, &#39;handicap_accessible&#39;, &#39;commercial&#39;, &#39;apartment&#39;, &#39;mobile_home&#39;, &#39;acreage&#39;, &#39;ranch&#39;, &#39;vacation_home&#39;, &#39;residential&#39;}</code></td>
+</tr>
+<tr>
 <td>property_use</td>
-<td><code>Enum{&#39;vacation&#39;, &#39;investment&#39;, &#39;primary_residence&#39;}</code></td>
+<td><code>Enum</code></td>
+<td>Property use. Possible values:<br /><code>{&#39;vacation&#39;, &#39;investment&#39;, &#39;primary_residence&#39;, &#39;secondary_residence&#39;, &#39;agriculture&#39;}</code></td>
+</tr>
+<tr>
+<td>property_value</td>
+<td><code>Float</code></td>
+<td></td>
+</tr>
+<tr>
+<td>property_value_min</td>
+<td><code>Float</code></td>
+<td></td>
+</tr>
+<tr>
+<td>property_value_max</td>
+<td><code>Float</code></td>
+<td></td>
+</tr>
+<tr>
+<td>property_visit</td>
+<td><code>Boolean</code></td>
+<td></td>
+</tr>
+<tr>
+<td>question</td>
+<td><code>Enum</code></td>
+<td>The question that the lead just asked. Possible values:<br /><code>{&#39;pricing&#39;, &#39;integrations&#39;, &#39;how_it_works&#39;, &#39;features&#39;, &#39;setup_time&#39;, &#39;savings&#39;, &#39;repairs&#39;, &#39;results&#39;, &#39;consultation&#39;, &#39;leasing&#39;, &#39;delivery_time&#39;, &#39;competitive_advantage&#39;, &#39;product_requirements&#39;, &#39;specifications&#39;, &#39;incentives&#39;, &#39;warranty&#39;, &#39;return_on_investment&#39;, &#39;discounts&#39;, &#39;assembly_details&#39;, &#39;referrals&#39;, &#39;compliance&#39;, &#39;available_geography&#39;, &#39;upgrade&#39;, &#39;extension&#39;, &#39;company_details&#39;, &#39;sell_power_back&#39;, &#39;inverter_type&#39;, &#39;license_number&#39;, &#39;data_import&#39;, &#39;quote&#39;, &#39;taxes&#39;, &#39;schools&#39;, &#39;other&#39;}</code></td>
+</tr>
+<tr>
+<td>readiness</td>
+<td><code>Enum</code></td>
+<td>The readiness of the lead. Possible values:<br /><code>{&#39;active&#39;, &#39;just_looking&#39;, &#39;researching&#39;, &#39;not_interested&#39;, &#39;&#39;}</code></td>
+</tr>
+<tr>
+<td>relocating</td>
+<td><code>Boolean</code></td>
+<td></td>
+</tr>
+<tr>
+<td>savings</td>
+<td><code>Float</code></td>
+<td></td>
+</tr>
+<tr>
+<td>savings_min</td>
+<td><code>Float</code></td>
+<td></td>
+</tr>
+<tr>
+<td>savings_max</td>
+<td><code>Float</code></td>
+<td></td>
+</tr>
+<tr>
+<td>selling_property_description</td>
+<td><code>String</code></td>
+<td></td>
+</tr>
+<tr>
+<td>showing_appointment</td>
+<td><code>String</code></td>
+<td>The time the lead is available for a showing appointment.</td>
+</tr>
+<tr>
+<td>tags</td>
+<td><code>String</code></td>
+<td>General purpose tags for managing and tracking conversations. Will not be asked as a qualifier and is not used to generate responses.</td>
+</tr>
+<tr>
+<td>technology</td>
+<td><code>String</code></td>
+<td>Special value: <code>open</code></td>
+</tr>
+<tr>
+<td>tenure</td>
+<td><code>String</code></td>
+<td></td>
+</tr>
+<tr>
+<td>time</td>
+<td><code>String</code></td>
+<td>Special value: <code>open</code></td>
+</tr>
+<tr>
+<td>timeframe</td>
+<td><code>String</code></td>
+<td>The general timeframe a lead is looking to move within.</td>
+</tr>
+<tr>
+<td>url</td>
+<td><code>String</code></td>
+<td></td>
+</tr>
+<tr>
+<td>veteran</td>
+<td><code>Boolean</code></td>
+<td></td>
+</tr>
+<tr>
+<td>veteran_service_disability</td>
+<td><code>Boolean</code></td>
+<td></td>
+</tr>
+<tr>
+<td>work_history</td>
+<td><code>String</code></td>
 <td></td>
 </tr>
 </tbody></table>
@@ -1600,6 +2005,9 @@ This API resource is subject to change. Be prepared to make changes in the futur
 <td>expect_agent_status</td>
 </tr>
 <tr>
+<td>expect_alternate_plan</td>
+</tr>
+<tr>
 <td>expect_appointment</td>
 </tr>
 <tr>
@@ -1609,16 +2017,88 @@ This API resource is subject to change. Be prepared to make changes in the futur
 <td>expect_beds</td>
 </tr>
 <tr>
+<td>expect_business_development</td>
+</tr>
+<tr>
 <td>expect_call_availability</td>
+</tr>
+<tr>
+<td>expect_company_name</td>
+</tr>
+<tr>
+<td>expect_competitor_status</td>
+</tr>
+<tr>
+<td>expect_confidence</td>
+</tr>
+<tr>
+<td>expect_contact_confirmation</td>
+</tr>
+<tr>
+<td>expect_contact_time</td>
 </tr>
 <tr>
 <td>expect_contingency</td>
 </tr>
 <tr>
+<td>expect_credit</td>
+</tr>
+<tr>
+<td>expect_credit_score</td>
+</tr>
+<tr>
+<td>expect_debt_to_income</td>
+</tr>
+<tr>
+<td>expect_decision_maker</td>
+</tr>
+<tr>
+<td>expect_delivery_followup</td>
+</tr>
+<tr>
+<td>expect_description</td>
+</tr>
+<tr>
+<td>expect_down_payment</td>
+</tr>
+<tr>
 <td>expect_email</td>
 </tr>
 <tr>
+<td>expect_employment_status</td>
+</tr>
+<tr>
+<td>expect_equity_status</td>
+</tr>
+<tr>
+<td>expect_financial_default</td>
+</tr>
+<tr>
 <td>expect_financing_status</td>
+</tr>
+<tr>
+<td>expect_first_time_buyer</td>
+</tr>
+<tr>
+<td>expect_fsbo_reason</td>
+</tr>
+<tr>
+<td>expect_garage_stalls</td>
+</tr>
+<tr>
+<td>expect_image</td>
+</tr>
+<tr>
+<td>expect_income</td>
+</tr>
+<tr>
+<td>expect_interest</td>
+</tr>
+<tr>
+<td>expect_is_local</td>
+</tr>
+<tr>
+<td>expect_language</td>
 </tr>
 <tr>
 <td>expect_lead_type</td>
@@ -1627,16 +2107,112 @@ This API resource is subject to change. Be prepared to make changes in the futur
 <td>expect_listing_appointment</td>
 </tr>
 <tr>
+<td>expect_living_space</td>
+</tr>
+<tr>
+<td>expect_loan_balance</td>
+</tr>
+<tr>
 <td>expect_location</td>
+</tr>
+<tr>
+<td>expect_lot_size</td>
+</tr>
+<tr>
+<td>expect_meeting_location</td>
+</tr>
+<tr>
+<td>expect_military_active_duty</td>
+</tr>
+<tr>
+<td>expect_military_branch</td>
+</tr>
+<tr>
+<td>expect_military_discharge_type</td>
+</tr>
+<tr>
+<td>expect_military_reserves_service</td>
+</tr>
+<tr>
+<td>expect_military_service_term</td>
+</tr>
+<tr>
+<td>expect_mortgage_escrow</td>
+</tr>
+<tr>
+<td>expect_mortgage_intent</td>
+</tr>
+<tr>
+<td>expect_motivation</td>
+</tr>
+<tr>
+<td>expect_motivation_plans</td>
 </tr>
 <tr>
 <td>expect_name</td>
 </tr>
 <tr>
+<td>expect_outcome</td>
+</tr>
+<tr>
+<td>expect_ownership</td>
+</tr>
+<tr>
+<td>expect_ownership_timeline</td>
+</tr>
+<tr>
 <td>expect_phone</td>
 </tr>
 <tr>
+<td>expect_preferred_channel</td>
+</tr>
+<tr>
 <td>expect_price</td>
+</tr>
+<tr>
+<td>expect_prior_loan_experience</td>
+</tr>
+<tr>
+<td>expect_problem</td>
+</tr>
+<tr>
+<td>expect_product_interest</td>
+</tr>
+<tr>
+<td>expect_promotional_offer</td>
+</tr>
+<tr>
+<td>expect_property_feature</td>
+</tr>
+<tr>
+<td>expect_property_location</td>
+</tr>
+<tr>
+<td>expect_property_preferences</td>
+</tr>
+<tr>
+<td>expect_property_records</td>
+</tr>
+<tr>
+<td>expect_property_status</td>
+</tr>
+<tr>
+<td>expect_property_type</td>
+</tr>
+<tr>
+<td>expect_property_value</td>
+</tr>
+<tr>
+<td>expect_question</td>
+</tr>
+<tr>
+<td>expect_readiness</td>
+</tr>
+<tr>
+<td>expect_relocating</td>
+</tr>
+<tr>
+<td>expect_savings</td>
 </tr>
 <tr>
 <td>expect_selling_address</td>
@@ -1645,22 +2221,19 @@ This API resource is subject to change. Be prepared to make changes in the futur
 <td>expect_showing_appointment</td>
 </tr>
 <tr>
+<td>expect_time</td>
+</tr>
+<tr>
 <td>expect_timeframe</td>
 </tr>
 <tr>
-<td>expect_loan_type</td>
+<td>expect_url</td>
 </tr>
 <tr>
-<td>expect_credit_score</td>
+<td>expect_veteran</td>
 </tr>
 <tr>
-<td>expect_down_payment</td>
-</tr>
-<tr>
-<td>expect_lender_status</td>
-</tr>
-<tr>
-<td>expect_property_use</td>
+<td>expect_veteran_service_disability</td>
 </tr>
 </tbody></table>
 <h3 id='conversations-slots-contexts-and-stages-stages'>Stages</h3>

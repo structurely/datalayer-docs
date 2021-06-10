@@ -74,52 +74,133 @@ context | `String` | The outgoing context of this response. Used by Holmes to cl
 
 Name | Type | Description
 ---- | ---- | -----------
+|**Lead Contact Information**|
 name | `String` | The name of the lead.
 email | `String` | The email of the lead.
 phone | `String` | The phone number of the lead.
 address | `String` | The address of the property a buyer lead is interested in.
 selling_address | `String` | The address of the property a seller lead is trying to sell.
+lead_type | `List<String>` | A list of lead types this lead is considered as. Not limited to but includes any of `buyer`, `buyer_specific`, `renter`, `renter_specific`, `seller`, `just_looking`, `pending_sale_interest`, `investor`, `rent_to_own`, `rent_to_own_specific`, `new_home_loan`, `new_home_loan_specific`, `home_refinance` or a combination thereof.
+|**Agent Contact Information**|
+agent_name | `String` | The name of the agent Holmes is messaging on the behalf of.
+agent_email | `String` | The email of the agent.
+agent_phone | `String` | The phone of the agent.
+agency_name | `String` | The name of the agency the agent works for or Holmes is messaging on the behalf of.
+office_location | `String` | The general location of the realtor office the system is representing.
+|**General Lead Information**|
+agent_status | `Boolean` | True if the lead is already working with an agent.
+alternate_plan | `String` |
+appointment | `String` | The time the lead is available for an appointment.
 baths | `Float` | The specific number bathrooms the lead is looking for.
 baths_min | `Float` | The minimum number of bathrooms the lead is looking for.
 baths_max | `Float` | The maximum number of bathrooms the lead is looking for.
 beds | `Integer` | The specific number of bedrooms the lead is looking for.
 beds_min | `Integer` | The minimum number of bedrooms the lead is looking for.
 beds_max | `Integer` | The maximum number of bedrooms the lead is looking for.
-price | `Float` | The specific price the lead is looking for.
-price_min | `Float` | The minimum price the lead is looking for.
-price_max | `Float` | The maximum price the lead is looking for.
-location | `String` | The general location the lead is interested in buying.
-readiness | `String` | The readiness of the lead. Can be one of the following values: `active`, `just_looking`, `researching`, or an empty string.
-lead_priority | `String` |
-lead_type | `List<String>` | A list of lead types this lead is considered as. Can be any combination of `buyer`, `seller`, `renter`, or `new_home_loan`.
-lead_source | `String` | The source of the lead. Can be any string.
-timeframe | `String` | The general timeframe a lead is looking to move within.
-contingency | `Boolean` | True if the lead needs to sell their current home before buying.
-agent_status | `Boolean` | True if the lead is already working with an agent.
-financing_status | `Boolean` | True if the lead is prequalified or paying with cash.
-is_investor | `Boolean` | True if the lead is an investor buying property.
-is_agent | `Boolean` | True if the lead is an agent.
+benefit | `Boolean` |
+business_development | `Enum` | Business development. Possible values:<br />`{'outbound', 'inbound', 'paid', 'referral', 'networking'}`
 call_availability | `String` | The time when the lead is available for a call with the agent.
-appointment | `String` | The time the lead is available for an appointment.
-listing_appointment | `String` | The time the lead is available for an appointment about their listing.
-showing_appointment | `String` | The time the lead is available for a showing appointment.
-agent_name | `String` | The name of the agent Holmes is messaging on the behalf of.
-agent_phone | `String` | The phone of the agent.
-agent_email | `String` | The email of the agent.
-agency_name | `String` | The name of the agency the agent works for or Holmes is messaging on the behalf of.
-office_location | `String` | The general location of the realtor office the system is representing.
-credit | `Enum{'very_poor', 'fair', 'good', 'very_good', 'excellent'}` |
+company_name | `String` |
+competitor_status | `Boolean` |
+confidence | `Enum` | Confidence. Possible values:<br />`{'very_confident', 'somewhat_confident', 'not_confident'}`
+contact_confirmation | `Boolean` |
+contact_time | `String` |
+content_offer | `Boolean` |
+contingency | `Boolean` | True if the lead needs to sell their current home before buying.
+credit | `Enum` | Credit rating. Possible values:<br />`{'very_poor', 'fair', 'good', 'very_good', 'excellent'}`
 credit_score | `Integer[300,850]` |
-debt_to_income | `Float[0,50] |
+debt_to_income | `Float[0,50]` |
+decision_maker | `Boolean` |
+decision_process | `String` |
+delivery_followup | `Boolean` |
+description | `String` |
 down_payment | `Float` | 
 down_payment_min | `Float` |
 down_payment_max | `Float` |
-employment_status | `Enum{'self_employed', 'employed', 'not_employed'}` |
-financial_default | `Enum{'bankruptcy', 'foreclosure', 'short_sale'}` |
+employment_status | `Enum` | Employment status. Possible values:<br />`{'self_employed', 'employed', 'not_employed'}`
+equity_status | `Float` |
+equity_status_min | `Float` |
+equity_status_max | `Float` |
+favorite_city | `String` |
+financial_default | `Enum` | Financial default. Possible values:<br />`{'bankruptcy', 'foreclosure', 'short_sale', 'missed_payments'}`
+financing_status | `Boolean` | True if the lead is prequalified or paying with cash.
+first_time_buyer | `Boolean` |
+fsbo_reason | `String` |
+garage_stalls | `Integer[0,8]` | Number of garage stalls.
+garage_stalls_min | `Integer[0,8]` | Minimum number of garage stalls.
+garage_stalls_max | `Integer[0,8]` | Maximum number of garage stalls.
+home_style | `Enum` | The home style(s) the lead is interested in. Possible values:<br />`{'art_deco', 'barndominium', 'bungalow', 'cape_cod', 'colonial', 'condominium', 'contemporary', 'craftsman', 'creole', 'dutch_colonial', 'farmhouse', 'federal', 'french_provincial', 'georgian', 'gothic_revival', 'greek_revival', 'international', 'italianate', 'log_cabin', 'modern', 'monterey', 'national', 'neoclassical', 'prairie', 'pueblo', 'queen_anne', 'ranch', 'regency', 'saltbox', 'second_empire', 'shed', 'shingle', 'shotgun', 'spanish_eclectic', 'split_level', 'stick', 'tudor', 'victorian', 'other'}`
+image | `String` |
 income | `Float` |
+interest | `Enum` | Interest. Possible values:<br />`{'interested', 'not_interested', 'somewhat_interested', 'postponed_interested'}`
+is_agent | `Boolean` | True if the lead is an agent.
+is_investor | `Boolean` | True if the lead is an investor buying property.
+is_local | `Boolean` |
+language | `Enum` | The language detected in this conversation. Current conversation support is for English and Spanish languages only. Possible values:<br />`{'spanish', 'mandarin', 'french', 'hindi', 'arabic', 'portuguese', 'bengali', 'russian', 'japanese', 'punjabi', 'english'}`
+lead_priority | `Enum` | Lead priority. Possible values:<br />`{'now', 'soon', 'later', 'distant', 'never'}`
+lead_source | `String` | The source of the lead. Can be any string.
 lender_status | `Boolean` |
-loan_type | `Enum{'fha', 'conventional', 'va', 'reverse_mortgage'}` |
-property_use | `Enum{'vacation', 'investment', 'primary_residence'}` |
+listing_appointment | `String` | The time the lead is available for an appointment about their listing.
+listing_url | `String` |
+living_space | `Integer` | The living space the lead is searching for.
+living_space_min | `Integer` | The minimum living space the lead is searching for.
+living_space_max | `Integer` | The maximum living space the lead is searching for.
+loan_balance | `Integer` | The loan balance.
+loan_balance_min | `Integer` | The minimum loan balance.
+loan_balance_max | `Integer` | The maximum loan balance.
+loan_type | `Enum` | Loan type. Possible values:<br />`{'fha', 'conventional', 'va', 'reverse_mortgage', 'jumbo', 'usda'}`
+location | `String` | The general location the lead is interested in buying.
+lot_size | `Integer` | The lot size the lead is searching for.
+lot_size_min | `Integer` | The minimum lot size the lead is searching for.
+lot_size_max | `Integer` | The maximum lot size the lead is searching for.
+meeting_location | `String` | Special values:<br />`webcam`, `zoom`, `google_hangouts`, `uberconference`, `open`
+military_active_duty | `Boolean` |
+military_branch | `Enum` | Possible values:<br />`{'army', 'air_force', 'coast_guard', 'marines', 'navy', 'national_guard', 'space_force'}`
+military_discharge_type | `Enum` | Possible values:<br />`{'honorable_discharge', 'general_discharge', 'other_than_honorable_discharge', 'bad_conduct_discharge', 'dishonorable_discharge', 'entry_level_separation', 'medical_separation', 'separation_for_convenience_of_the_government'}`
+military_reserves_service | `Boolean` |
+military_service_term | `Integer` |
+mortgage_escrow | `Boolean` |
+mortgage_intent | `Enum` | Possible values:<br />`{'preapproval', 'rate_quote'}`
+motivation | `Enum` | Possible values:<br />`{'new_job', 'lost_job', 'downsizing', 'upsizing', 'death', 'debt', 'divorce', 'lease_expiry', 'lifestyle', 'investment', 'environmental', 'save_money', 'closer_to_family', 'tired_of_renting', 'new_children', 'retiring', 'space_for_animals', 'neighbor_sold_property', 'sold_property', 'ready_to_move', 'closer_to_school', 'closer_to_friends', 'good_schools', 'vacation_interest', 'homeless', 'privacy', 'weather'}`
+motivation_plans | `String` |
+outcome | `String` |
+ownership | `Enum` | Possible values:<br />`{'sole_owner', 'co_owner', 'third_party_owner', 'no_ownership'}`
+ownership_timeline | `String` | Special value: `open`
+price | `Float` | The specific price the lead is looking for.
+price_min | `Float` | The minimum price the lead is looking for.
+price_max | `Float` | The maximum price the lead is looking for.
+prior_loan_experience | `Boolean` |
+problem | `String` |
+promotional_offer | `Enum` | Interest. Possible values:<br />`{'interested', 'not_interested', 'somewhat_interested', 'postponed_interested'}`
+property_feature | `Enum` | Possible values:<br />`{'access_to_water', 'big_yard', 'detached_garage', 'exposed_beams', 'exposed_brick', 'finished_basement', 'handicap_accessible', 'home_office', 'pool', 'space_to_entertain', 'updated_baths', 'updated_kitchen', 'vaulted_ceilings', 'walkable_neighborhood', 'fenced_yard', 'other'}`
+property_info_request | `Enum` | Possible values:<br />`{'baths', 'beds', 'boat_slip', 'community_info', 'covenants', 'days_on_market', 'deed_restrictions', 'disclosures', 'expected_dom', 'floorplan', 'garage_spaces', 'hoa', 'living_space', 'lot_rent', 'lot_size', 'owners', 'pet_friendly', 'price', 'property_location', 'property_type', 'public_remarks', 'rental_history', 'schools', 'senior_community', 'status', 'stories', 'taxes', 'transactions', 'utilities', 'year_built', 'zoning'}`
+property_location | `String` |
+property_preferences | `String` |
+property_records | `Enum` | Possible values:<br />`{'second_mortgage', 'lien'}`
+property_status | `Enum` | Possible values:<br />`{'active', 'sold', 'pending'}`
+property_type | `Enum` | Possible values:<br />`{'vacant_land', 'handicap_accessible', 'commercial', 'apartment', 'mobile_home', 'acreage', 'ranch', 'vacation_home', 'residential'}`
+property_use | `Enum` | Property use. Possible values:<br />`{'vacation', 'investment', 'primary_residence', 'secondary_residence', 'agriculture'}`
+property_value | `Float` |
+property_value_min | `Float` |
+property_value_max | `Float` |
+property_visit | `Boolean` |
+question | `Enum` | The question that the lead just asked. Possible values:<br />`{'pricing', 'integrations', 'how_it_works', 'features', 'setup_time', 'savings', 'repairs', 'results', 'consultation', 'leasing', 'delivery_time', 'competitive_advantage', 'product_requirements', 'specifications', 'incentives', 'warranty', 'return_on_investment', 'discounts', 'assembly_details', 'referrals', 'compliance', 'available_geography', 'upgrade', 'extension', 'company_details', 'sell_power_back', 'inverter_type', 'license_number', 'data_import', 'quote', 'taxes', 'schools', 'other'}`
+readiness | `Enum` | The readiness of the lead. Possible values:<br />`{'active', 'just_looking', 'researching', 'not_interested', ''}`
+relocating | `Boolean` |
+savings | `Float` |
+savings_min | `Float` |
+savings_max | `Float` |
+selling_property_description | `String` |
+showing_appointment | `String` | The time the lead is available for a showing appointment.
+tags | `String` | General purpose tags for managing and tracking conversations. Will not be asked as a qualifier and is not used to generate responses.
+technology | `String` | Special value: `open`
+tenure | `String` |
+time | `String` | Special value: `open`
+timeframe | `String` | The general timeframe a lead is looking to move within.
+url | `String` |
+veteran | `Boolean` |
+veteran_service_disability | `Boolean` |
+work_history | `String` |
 
 ### Contexts
 
@@ -128,27 +209,83 @@ Name |
 general |
 expect_address |
 expect_agent_status |
+expect_alternate_plan |
 expect_appointment |
 expect_baths |
 expect_beds |
+expect_business_development |
 expect_call_availability |
+expect_company_name |
+expect_competitor_status |
+expect_confidence |
+expect_contact_confirmation |
+expect_contact_time |
 expect_contingency |
+expect_credit |
+expect_credit_score |
+expect_debt_to_income |
+expect_decision_maker |
+expect_delivery_followup |
+expect_description |
+expect_down_payment |
 expect_email |
+expect_employment_status |
+expect_equity_status |
+expect_financial_default |
 expect_financing_status |
+expect_first_time_buyer |
+expect_fsbo_reason |
+expect_garage_stalls |
+expect_image |
+expect_income |
+expect_interest |
+expect_is_local |
+expect_language |
 expect_lead_type |
 expect_listing_appointment |
+expect_living_space |
+expect_loan_balance |
 expect_location |
+expect_lot_size |
+expect_meeting_location |
+expect_military_active_duty |
+expect_military_branch |
+expect_military_discharge_type |
+expect_military_reserves_service |
+expect_military_service_term |
+expect_mortgage_escrow |
+expect_mortgage_intent |
+expect_motivation |
+expect_motivation_plans |
 expect_name |
+expect_outcome |
+expect_ownership |
+expect_ownership_timeline |
 expect_phone |
+expect_preferred_channel |
 expect_price |
+expect_prior_loan_experience |
+expect_problem |
+expect_product_interest |
+expect_promotional_offer |
+expect_property_feature |
+expect_property_location |
+expect_property_preferences |
+expect_property_records |
+expect_property_status |
+expect_property_type |
+expect_property_value |
+expect_question |
+expect_readiness |
+expect_relocating |
+expect_savings |
 expect_selling_address |
 expect_showing_appointment |
+expect_time |
 expect_timeframe |
-expect_loan_type |
-expect_credit_score |
-expect_down_payment |
-expect_lender_status |
-expect_property_use |
+expect_url |
+expect_veteran |
+expect_veteran_service_disability |
 
 ### Stages
 
